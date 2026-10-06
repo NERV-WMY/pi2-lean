@@ -1,0 +1,8 @@
+.lake/
+*.olean
+*.ilean
+*.aux
+*.log
+!verification/build.log
+*.toc
+__pycache__/
