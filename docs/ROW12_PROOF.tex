@@ -1,0 +1,1554 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,longtable,array}
+\usepackage{xcolor,listings}
+\usepackage[hidelinks]{hyperref}
+\allowdisplaybreaks
+\setlength{\emergencystretch}{2em}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\dd}{\mathrm d}
+\newcommand{\tr}{\mathsf T}
+\newcommand{\NF}{\operatorname{NF}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\e}{\mathbf e}
+\newcommand{\vv}{\mathbf v}
+\newcommand{\ww}{\mathbf w}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\QQ}{\mathbb Q}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,
+ columns=fullflexible,keepspaces=true,showstringspaces=false,
+ frame=single,rulecolor=\color{black!25},tabsize=4}
+
+\title{A rational contour proof of a Ramanujan-type\texorpdfstring{ $1/\pi^2$}{ 1/pi squared} identity}
+\author{Hodge project: scalar Row12 manuscript}
+\date{7 October 2026}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+We evaluate a specific convergent weighted factorial series. The proof first
+converts the entire series into an angular and radial integral. An explicit
+rational coefficient one-form and a six-component rational correction give
+an antiderivative of the loaded radial integrand. Both endpoint limits and
+the removable interior singularity are treated explicitly. The nonzero
+endpoint is evaluated using an independently normalized Gauss Wronskian and
+a signed algebraic transformation. All finite rational inputs and an exact
+verification procedure are included in this single source file.
+\end{abstract}
+
+\noindent\textbf{Version and verification scope.}
+This manuscript concerns the literal scalar equality below. Its analytic
+derivation has evidence tags [ARG], and the retained exact rational checks
+have tag [ONE]. A fresh document-level review found no substantive defect
+in the scalar proof; its exact scope and source versions are recorded in
+\texttt{DOCUMENT\_REVIEW.md}. Human mathematical acceptance is Pending.
+The literal scalar identity also has a completed Lean formalization as of
+7 October 2026, including unconditional convergence and sum statements.
+\tableofcontents
+
+\section{The statement and the proof structure}
+\begin{theorem}\label{thm:main}
+The series on the left converges absolutely, and
+\begin{equation}\label{eq:main}
+ R:=\sum_{n=0}^{\infty}\frac{(6n)!}{(n!)^6}
+       \frac{532n^2+126n+9}{10^{6n}}
+   =\frac{375}{4\pi^2}.
+\end{equation}
+\end{theorem}
+
+Set
+\begin{equation}\label{eq:constants}
+ \rho=\frac{729}{15625}=\frac{6^6}{10^6},\qquad
+ u=\frac{27}{125}=\sqrt\rho,\qquad \tau=2\pi i,
+\end{equation}
+and introduce the two distinct weight polynomials
+\begin{equation}\label{eq:weights}
+ P(z)=9+126z+532z^2,\qquad
+ Q(z)=(1+6z)P(z)=9+180z+1288z^2+3192z^3.
+\end{equation}
+The factor $1+6z$ in $Q$ is essential: it comes from the radial moment.
+The argument constructs a function $\mathcal E$ satisfying
+\[
+ \mathcal E'(U)=-\frac{1}{3375}
+ Q(\theta_\lambda)h\bigl(\rho(1-U^2)^3\bigr),
+ \qquad \theta_\lambda=\lambda\frac{\dd}{\dd\lambda},
+\]
+where $Q(\theta_\lambda)h$ is evaluated at the displayed argument.
+We prove, including every boundary contribution,
+\[
+ R=\int_0^1Q(\theta_\lambda)h\bigl(\rho(1-U^2)^3\bigr)\,\dd U,
+ \qquad \mathcal E(0+)=\frac{1}{36\pi^2},\quad
+ \mathcal E(1-)=0.
+\]
+The interior rational pole of the initially defined $\mathcal E$ is removable.
+These facts imply~\eqref{eq:main} by the fundamental theorem of calculus.
+
+\section{From the literal series to the loaded integral}
+For $n\geq0$ define
+\begin{equation}\label{eq:native-coeff}
+ a_n=\frac{(1/6)_n(1/2)_n(5/6)_n}{(n!)^3}
+     =\frac{(6n)!}{(3n)!(n!)^3\,1728^n},
+\end{equation}
+where $(a)_0=1$ and $(a)_n=a(a+1)\cdots(a+n-1)$.
+The equality of the two formulas follows from their common value $1$ at
+$n=0$ and their common successive ratio
+\begin{equation}\label{eq:native-ratio}
+ \frac{a_{n+1}}{a_n}
+ =\frac{(n+1/6)(n+1/2)(n+5/6)}{(n+1)^3}.
+\end{equation}
+In particular $0<a_n\leq1$. Define, on the complex unit disk,
+\begin{equation}\label{eq:series}
+ F(q)=\sum_{n\geq0}a_nq^n,\qquad
+ h(\lambda)=\sum_{n\geq0}a_n^2\lambda^n,\qquad
+ \theta=q\frac{\dd}{\dd q}.
+\end{equation}
+The variable attached to each Euler operator will always be stated.
+All finite Euler derivatives converge normally on compact subsets of their
+unit disks, by the majorant $\sum n^j r^n$ for $r<1$.
+
+\begin{lemma}[Radial moments]\label{lem:moments}
+For every integer $m\geq0$,
+\[
+ I_m:=\int_0^1(1-U^2)^m\,\dd U
+     =\frac{4^m(m!)^2}{(2m+1)!}.
+\]
+Consequently
+\begin{equation}\label{eq:moment-bridge}
+ (6n+1)a_n^2 I_{3n}=
+       \frac{(6n)!}{6^{6n}(n!)^6}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The derivative of $U(1-U^2)^{m+1}$ has integral zero: the function
+vanishes at both endpoints. Its integral gives
+$(2m+3)I_{m+1}=(2m+2)I_m$. Starting at $I_0=1$ proves the stated formula.
+Substitution of~\eqref{eq:native-coeff} with $m=3n$ proves
+\eqref{eq:moment-bridge}; here $4^{3n}/1728^{2n}=6^{-6n}$.
+\end{proof}
+
+Absolute convergence of the original series follows independently from
+$(6n)!/(n!)^6\leq6^{6n}$, since this multinomial coefficient is one term
+in the expansion of $(1+\cdots+1)^{6n}$ with six summands. Thus its terms
+are bounded by $P(n)\rho^n$, a summable sequence.
+Put $x=1-U^2$ and $\lambda=\rho x^3$. For $0\leq U\leq1$,
+the loaded summands are bounded by $Q(n)\rho^n$. This justifies
+termwise radial integration and yields the exact identity
+\begin{equation}\label{eq:radial}
+ R=\int_0^1Q(\theta_\lambda)h\bigl(\rho(1-U^2)^3\bigr)\,\dd U.
+\end{equation}
+Indeed the $n$th integrated term is $Q(n)a_n^2\rho^nI_{3n}$,
+which equals the $n$th original term by~\eqref{eq:moment-bridge}.
+The term $n=0$ has value $9$ in both expressions.
+
+\begin{lemma}[Angular coefficient extraction]\label{lem:hadamard}
+For $0<\lambda<1$ and $\lambda<r<1$, every positively oriented circle
+$|s|=r$ satisfies
+\begin{equation}\label{eq:hadamard}
+ \theta_\lambda^j h(\lambda)
+ =\frac1\tau\oint_{|s|=r}
+       F(s)(\theta_b^j F)(\lambda/s)\,\frac{\dd s}{s},
+ \qquad j\geq0.
+\end{equation}
+Here $\theta_b=b\,\dd/\dd b$, and for $j=0$ the factor is $F(b)$.
+\end{lemma}
+\begin{proof}
+Both native power series and their required Euler derivatives converge
+absolutely and uniformly on the circle. Expanding the product, the
+normalized integral of $s^{m-n}\dd s/s$ equals $1$ when $m=n$ and
+$0$ otherwise. This leaves $\sum a_n^2n^j\lambda^n$.
+For $j=0$, the factor $n^0$ denotes $1$, including at $n=0$.
+The bounds already given also justify local parameter differentiation.
+\end{proof}
+
+\section{The explicit rational coefficient form}
+The coefficient recurrence gives the native differential equation
+\[
+ \bigl[\theta^3-q(\theta+1/6)(\theta+1/2)(\theta+5/6)\bigr]F=0.
+\]
+Writing $Y(q)=(F(q),\theta F(q),\theta^2 F(q))^{\tr}$, this becomes
+\begin{equation}\label{eq:native-system}
+ \theta Y=N(q)Y,\qquad
+ N(q)=\begin{pmatrix}
+ 0&1&0\\0&0&1\\
+ \dfrac{5q}{72(1-q)}&\dfrac{23q}{36(1-q)}&\dfrac{3q}{2(1-q)}
+ \end{pmatrix}.
+\end{equation}
+Set
+\begin{equation}\label{eq:dual-state}
+ T(q)=\begin{pmatrix}
+ -5q/72&0&2q^2(1-q)\\
+ -q/2&q(q-1)&0\\1-q&0&0
+ \end{pmatrix},\qquad W(q)=T(q)^{\tr}Y(q).
+\end{equation}
+For use in the finite coefficient calculation, let
+\begin{equation}\label{eq:sym-connection}
+ \mathsf A(q)=\begin{pmatrix}0&1&0\\2c(q)&-a(q)&2\\0&c(q)&-2a(q)\end{pmatrix},
+ \quad a(q)=\frac{1-3q/2}{q(1-q)},\quad
+ c(q)=\frac{5}{144q(1-q)}.
+\end{equation}
+Entrywise rational differentiation gives
+$T'+N^{\tr}T/q+T\mathsf A=0$. Hence
+\begin{equation}\label{eq:dual-ode}
+ W'(q)=-\mathsf A(q)^{\tr}W(q).
+\end{equation}
+This identity fixes the dual-state convention used below.
+
+For $0<U<1$ set
+\begin{equation}\label{eq:beta-parameters}
+ \begin{aligned}
+ x&=1-U^2,& \lambda&=\rho x^3,& b&=\lambda/s,\\
+ m&=\frac{27x(80-99x+27x^2)}{1000},&
+ \ell_0&=\frac{27x(9x-16)}{1000},& \ell&=U\ell_0,\\
+ M&=25-9x,& d&=x^4M(99x-50)^2,& f&=s^2-2ms+\lambda.
+ \end{aligned}
+\end{equation}
+The polynomial matrices $L_P(x),R_P(x)$ are explicitly specified in
+Appendix~\ref{app:certificates}. Define the rational matrix coefficients
+\begin{align}
+ B_s(U,s)&=\frac{2U L_P(s-m)+2\ell M R_P}{df},\label{eq:beta-s}\\
+ B_U(U,s)&=\frac{U L_P\,\partial_U f
+ -2R_P\{\ell M\partial_Um+(s-m)(M\partial_U\ell+9U\ell)\}}{df}.
+ \label{eq:beta-u}
+\end{align}
+The partial $U$ derivatives hold $s$ fixed. Both coefficients are used;
+the second summand in~\eqref{eq:beta-s} is retained throughout.
+Introduce the actual normalized scalar contour function
+\begin{equation}\label{eq:beta-flux}
+ \mathfrak b(U)=\frac1\tau\oint_{|s|=\sqrt\lambda}
+       W(s)^{\tr}B_s(U,s)W(\lambda/s)\,\dd s.
+\end{equation}
+
+The polynomial identity
+$m^2-\lambda=U^2\ell_0^2M$ gives the two roots
+\begin{equation}\label{eq:roots}
+ \sigma_\pm=m\pm U\ell_0\sqrt M,
+ \qquad 0<\sigma_+<\sqrt\lambda<\sigma_-.
+\end{equation}
+Indeed $m>0$, $\ell_0<0$, $M>0$ and
+$\sigma_+\sigma_-=\lambda$ on $0<x<1$. The circle therefore contains
+exactly the inside root $\sigma_+$ and has no pole on it. The coefficients
+also have a rational pole at
+\begin{equation}\label{eq:escape}
+ 99x-50=0,\qquad U_e=\frac{7}{3\sqrt{11}}.
+\end{equation}
+For now~\eqref{eq:beta-flux} is used off this point.
+
+\section{The finite identities and the scalar primitive}
+This section makes explicit how finite rational identities imply an
+identity of actual analytic functions.
+Let $J=N(0)$, $\ww=(5/72,23/36,3/2)$, and let $E$ be the $3$ by $3$
+matrix whose last row is $\ww$ and whose other rows vanish. Write
+\[
+ \mathcal M_s=
+ \frac{N(s)\otimes I-I\otimes N(\lambda/s)}s.
+\]
+Flatten $3$ by $3$ matrices row by row; $\e_0,\e_1,\e_2$ denote standard
+rows of length three. Define the six rows
+\begin{equation}\label{eq:nf-basis}
+ \Psi_j=\frac{\ww\otimes\e_j}{s-1},\qquad
+ \Psi_{j+3}=\frac{\e_j\otimes\ww}{s-\lambda},\qquad 0\leq j\leq2.
+\end{equation}
+The corresponding column of contour integrals is
+\begin{equation}\label{eq:v-definition}
+ v_j(\lambda)=\frac1\tau\oint_{|s|=r}
+  \Psi_j(s,\lambda)\,[Y(s)\otimes Y(\lambda/s)]\,\dd s,
+ \qquad \lambda<r<1.
+\end{equation}
+These integrals are independent of the admissible radius, since their
+integrands are analytic in the intervening annulus. They are holomorphic
+in $\lambda$ locally on the punctured unit disk by a fixed-circle argument:
+for complex $\lambda$ choose $|\lambda|<r<1$ in~\eqref{eq:v-definition}.
+
+\begin{lemma}[Finite rational certificate]\label{lem:certificate}
+With the explicit constant matrix $C$, rational matrix $B_6(\lambda)$
+and rational row $\xi(x)$ in Appendix~\ref{app:certificates}, one has
+\begin{align}
+ C\vv(\lambda)&=(h,\theta_\lambda h,\ldots,\theta_\lambda^5h)^{\tr},
+ \label{eq:cyclic-state}\\
+ \theta_\lambda\vv&=B_6(\lambda)\vv.\label{eq:six-action}
+\end{align}
+Define the two covariant coefficient derivatives
+\begin{align*}
+ \mathcal D_U B_s&=\partial_U B_s+\frac{6U}{x}B_s\,b\mathsf A(b)^{\tr},\\
+ \mathcal D_s B_U&=\partial_s B_U-\mathsf A(s)B_U
+                      +\frac{b}{s}B_U\mathsf A(b)^{\tr},
+\end{align*}
+and $\mathsf S=T(s)(-\mathcal D_U B_s+\mathcal D_sB_U)T(b)^{\tr}$.
+There is a rational row $\eta$ with poles only at $0,1,\lambda$ and
+infinity in $s$, such that
+\begin{equation}\label{eq:source-nf}
+ \operatorname{flatten}(\mathsf S)
+   =\sum_{j=0}^5G_j(x)\Psi_j+\partial_s\eta+\eta\mathcal M_s.
+\end{equation}
+Its six source coordinates satisfy the complete row identity
+\begin{equation}\label{eq:outer-certificate}
+ G-\frac{9c_0+180c_1+1288c_2+3192c_3}{3375}
+ =\xi-2(1-x)\xi'-\frac{6(1-x)}x\xi B_6(\rho x^3),
+\end{equation}
+where $c_j$ is row $j$ of $C$ (indices start at zero).
+All statements are rational identities on their regular charts.
+\end{lemma}
+\begin{proof}
+Appendix~\ref{app:certificates} specifies every rational input and the
+finite elimination giving the primitive $\eta$. It verifies the anchor,
+the six parameter-action identities, and~\eqref{eq:outer-certificate}
+using exact rational arithmetic. These identities, rather than a rank or
+numerical residual tolerance, are the finite certificate.
+For an exact row $\partial_s\zeta+\zeta\mathcal M_s$, its pairing with
+$Y(s)\otimes Y(\lambda/s)$ is the ordinary derivative of the single-valued
+function $\zeta[Y(s)\otimes Y(\lambda/s)]$. Its integral on the circle is
+zero. The anchor therefore gives $h=c_0\vv$, and the parameter-action
+identities give~\eqref{eq:six-action} and the subsequent five rows of
+\eqref{eq:cyclic-state}. No regularity inside the circle is required for
+the integral of this total derivative to vanish.
+\end{proof}
+
+For any $U_0\in(0,1)\setminus\{U_e\}$, root separation in~\eqref{eq:roots}
+allows a fixed radius in a neighborhood of $U_0$ without crossing a pole
+of $f$. On this fixed compact circle all integrands and their derivatives
+are analytic in the parameter. Applying~\eqref{eq:dual-ode} and
+integrating the $s$ derivative of the $B_U$ pairing gives
+\begin{equation}\label{eq:beta-derivative}
+ \mathfrak b'(U)=-G(x)\vv(\lambda).
+\end{equation}
+Here~\eqref{eq:source-nf} supplies the source integral, with its displayed
+minus sign. The coefficient derivatives account for
+$\partial_Ub=-6Ub/x$ and $\partial_sb=-b/s$.
+
+By~\eqref{eq:six-action}, ordinary differentiation gives
+\[
+ \frac{\dd}{\dd U}\{U\xi(x)\vv(\lambda)\}
+ =\left[\xi-2(1-x)\xi'-\frac{6(1-x)}x\xi B_6\right]\vv.
+\]
+Combining this with~\eqref{eq:outer-certificate} and
+\eqref{eq:beta-derivative}, define
+\begin{equation}\label{eq:primitive}
+ \boxed{\mathcal E(U)=\mathfrak b(U)+U\xi(1-U^2)\vv\bigl(\rho(1-U^2)^3\bigr).}
+\end{equation}
+It satisfies the actual function identity
+\begin{equation}\label{eq:primitive-derivative}
+ \mathcal E'(U)=-\frac1{3375}Q(\theta_\lambda)h(\lambda),
+ \qquad \lambda=\rho(1-U^2)^3.
+\end{equation}
+
+\section{The interior escape singularity is removable}
+At $x_e=50/99$, direct substitution gives the two roots $\lambda_e$ and
+$1$ of $f$, with $0<\lambda_e<1$. Choose a fixed circle of radius
+$\lambda_e<r_e<1$. For complex $U$ sufficiently close to $U_e$, its
+integrands remain analytic on the circle. The continued integral and the
+rational correction in~\eqref{eq:primitive} are meromorphic in $U$;
+their only possible local pole comes from powers of $99x-50$.
+For real nearby $U$ this circle is deformable to the balanced circle without
+crossing either root, so it represents the same function $\mathcal E$.
+
+The right-hand side of~\eqref{eq:primitive-derivative} is holomorphic near
+$U_e$. Consequently $\mathcal E$ has no negative Laurent coefficient:
+the derivative of a nonzero term $a_{-k}(U-U_e)^{-k}$ would have a pole
+of order $k+1$. Thus $\mathcal E$ extends holomorphically through $U_e$.
+Both real one-sided limits agree. This conclusion concerns the sum of the
+two terms in~\eqref{eq:primitive}; every rational escape term in each
+coefficient remains included.
+
+\section{The upper endpoint and the rational correction}
+\subsection{The beta contour tends to zero at \texorpdfstring{$U=1$}{U=1}}
+As $q\to0$ in a disk,
+$F(q)=1+(5/72)q+O(q^2)$. Formula~\eqref{eq:dual-state} shows that all
+three components of $W(q)$ are $O(q^2)$. In the first component the
+potentially linear terms are $-5q/72+(5/72)q$ and cancel.
+The bounds are uniform on a sufficiently small disk.
+
+As $U\to1^-$, put $r=\sqrt\lambda=u x^{3/2}$. On $|s|=r$ both $s$
+and $b=\lambda/s$ have modulus $r$, so the product of the two dual-state
+bounds is $O(r^4)=O(x^6)$. The matrices $L_P,R_P$ are bounded
+polynomials, $s-m=O(x)$ and $\ell_0=O(x)$. Also
+\[
+ |f|\geq2mr-2\lambda=2r(m-r)\geq c_1xr,
+ \qquad |d|\geq c_2x^4
+\]
+for positive constants $c_1,c_2$ and sufficiently small $x>0$.
+Indeed $m/x\to54/25$ while $r/x\to0$.
+It follows from~\eqref{eq:beta-s} that $B_s=O(x^{-4}/r)$ uniformly
+on the circle. Including its length $2\pi r$ and the factor $1/\tau$,
+\begin{equation}\label{eq:upper-beta}
+ \mathfrak b(U)=O(x^2)\longrightarrow0.
+\end{equation}
+
+\subsection{All singular and constant terms of the outer correction cancel}
+The literal matrix $C$ gives
+\[
+ C^{-1}(1,0,0,0,0,0)^{\tr}=v_0=(0,0,0,5/72,0,0)^{\tr},
+\]
+\[
+ C^{-1}(1,1,1,1,1,1)^{\tr}
+   =v_1=(-1,-1,-1,77/24,77/24,77/24)^{\tr}.
+\]
+Since $a_1^2\rho=9/40000$, the normally convergent series give
+\begin{equation}\label{eq:state-expansion}
+ \vv(\rho x^3)=v_0+\frac9{40000}x^3v_1+O(x^6).
+\end{equation}
+Expand the full rational row as $\xi(x)=\sum_{k=-4}^{\infty}\xi_kx^k$
+near zero. Exact substitution of its printed coefficients yields
+\begin{align}
+ \xi_{-4}v_0=\xi_{-3}v_0=\xi_{-2}v_0&=0,\label{eq:outer-cancel-a}\\
+ \xi_{-1}v_0=-\frac{105800}{459459},\quad
+ \frac9{40000}\xi_{-4}v_1&=\frac{105800}{459459},\label{eq:outer-cancel-b}\\
+ \xi_0v_0=\frac{8464}{21879},\quad
+ \frac9{40000}\xi_{-3}v_1&=-\frac{8464}{21879}.
+ \label{eq:outer-cancel-c}
+\end{align}
+Both $(99x-50)^{-1}$ and $(99x-50)^{-2}$ contribute to $\xi_0$.
+Equations~\eqref{eq:outer-cancel-a}--\eqref{eq:outer-cancel-c} cancel
+all negative powers and the constant term of $\xi\vv$.
+Multiplying the $O(x^6)$ remainder in~\eqref{eq:state-expansion} by
+$\xi=O(x^{-4})$ gives $O(x^2)$. Thus $\xi\vv=O(x)$ and
+\begin{equation}\label{eq:upper-full}
+ \mathcal E(1-)=0.
+\end{equation}
+At the other endpoint $x\to1$, the row $\xi$ is finite and the state is
+analytic at $\lambda=\rho$. Consequently
+\begin{equation}\label{eq:lower-outer}
+ U\xi(x)\vv(\lambda)\longrightarrow0\qquad(U\to0^+).
+\end{equation}
+
+\section{The lower endpoint is a full positive residue}
+Choose once and for all $\rho<r_0<u$; for example $r_0=1/10$.
+For sufficiently small $U>0$, both roots of $f$ lie outside $|s|=r_0$,
+whereas the balanced circle encloses $\sigma_+$ alone. On the fixed
+inner circle $B_s\to0$ uniformly: it has the explicit factor $U$, its
+remaining denominator is nonzero at $U=0$, and both native arguments
+stay in compact subsets of the unit disk. Hence its normalized integral
+tends to zero.
+
+The positively oriented annulus between the two circles contains exactly
+the pole $\sigma_+$. The residue theorem gives their difference as the
+full residue of the scalar integrand in~\eqref{eq:beta-flux}, because
+$2\pi i/\tau=1$. Algebraically,
+\begin{equation}\label{eq:inside-residue}
+ \Res_{s=\sigma_+}B_s
+ =\frac{U L_P+\sqrt M R_P}{d}
+ \longrightarrow S_*:=\frac{4R_P(1)}{d(1)}.
+\end{equation}
+No pole lies on either contour in this application. Taking the limit of
+the actual inside residue gives
+\begin{equation}\label{eq:lower-beta}
+ \mathfrak b(0+)=Y(u)^{\tr}T(u)S_*T(u)^{\tr}Y(u).
+\end{equation}
+The polynomial matrices yield the small exact product
+\begin{equation}\label{eq:residue-matrix}
+ T(u)S_*T(u)^{\tr}=
+ \begin{pmatrix}
+ -1/750&1/150&98/1125\\
+ 1/150&98/1125&0\\98/1125&0&0
+ \end{pmatrix}.
+\end{equation}
+Every quantity in this computation is rational, except the subsequently
+evaluated native solution values. The sign is fixed by the annulus
+orientation and the selected inside root.
+
+The native Gauss equation and symmetric-square identity proved in the
+next section imply, at $q=u$,
+\[
+ F=g^2,\qquad \theta F=2g\theta g,\qquad
+ \theta^2 F=2(\theta g)^2+2g\theta^2g,
+\]
+with
+$\theta^2g=(27/196)\theta g+(15/1568)g$ at $u$.
+Substitution in~\eqref{eq:residue-matrix} gives
+\begin{equation}\label{eq:residue-square}
+ \mathfrak b(0+)=\frac{\{3F(u)+28\theta F(u)\}^2}{4500}.
+\end{equation}
+For an explicit check, the coefficients of $g^4,g^3\theta g,
+g^2(\theta g)^2$ on both sides are respectively
+$9/4500,336/4500,3136/4500$.
+
+% Claim: the actual native identity 3 F(27/125)+28 theta F(27/125)=5 sqrt(5)/pi,
+% including the signed algebraic Gauss transformation for every real h>8.
+% Scope: the literal convergent hypergeometric functions defined below and
+% their ordinary derivatives on the stated real intervals.
+% Evidence: [ARG], the complete human-checkable analytic derivation below.
+% Proof status: Complete for this scalar analytic lemma.
+% Open premises: None within this lemma.
+% Review: Not reviewed in this fragment; the assembled document receives
+% the parent's single fresh adversarial mathematical review.
+% Human acceptance: Pending.
+
+\section{A native Gauss certificate for the \texorpdfstring{$1/\pi$}{1/pi} value}
+\label{sec:native-gauss-certificate}
+
+Put
+\begin{equation}\label{eq:gauss-definitions}
+\begin{aligned}
+ H(p)&=\sum_{n\geq0}\frac{(1/6)_n(5/6)_n}{(n!)^2}p^n,\\
+ F(q)&=\sum_{n\geq0}
+       \frac{(1/6)_n(1/2)_n(5/6)_n}{(n!)^3}q^n,
+       \qquad \theta=q\frac{d}{dq},\quad \tau=2\pi i.
+\end{aligned}
+\end{equation}
+Here $(a)_0=1$ and $(a)_n=a(a+1)\cdots(a+n-1)$ for $n\geq1$.
+Both series have radius of convergence one, by their consecutive
+coefficient ratios.  Thus they and their termwise derivatives define
+analytic functions on the open unit disc.  For real $0<q<1$, define
+\begin{equation}\label{eq:gauss-p-g-Z}
+ p(q)=\frac{1-\sqrt{1-q}}2,
+ \qquad g(q)=H(p(q)),\qquad Z(q)=H(1-p(q)).
+\end{equation}
+Every square root and fractional power of a positive real number below
+has its positive real value.  A prime on $H$ always means its ordinary
+derivative with respect to its argument.
+
+\subsection{The normalized symmetric square}
+
+The coefficient recurrence of $H$ gives the actual Gauss equation
+\begin{equation}\label{eq:gauss-ordinary-equation}
+ p(1-p)H''(p)+(1-2p)H'(p)-\frac5{36}H(p)=0,
+ \qquad H(0)=1.
+\end{equation}
+Indeed its Euler form is
+$\{p\partial_p\}^2H-p\{p\partial_p+1/6\}
+\{p\partial_p+5/6\}H=0$, whose coefficient of $p^n$ is
+$n^2h_n-(n-5/6)(n-1/6)h_{n-1}$ for $n\geq1$.
+The equation is invariant under $p\mapsto1-p$, so $H(1-p)$ also
+satisfies it wherever $0<p<1$.
+
+Write $s=\sqrt{1-q}$.  The identities
+\[
+ p(1-p)=q/4,\qquad 1-2p=s,\qquad
+ \frac{dp}{dq}=\frac1{4s},\qquad
+ \frac{d^2p}{dq^2}=\frac1{8s^3}
+\]
+and the chain rule give, for either $y=g$ or $y=Z$,
+\begin{equation}\label{eq:gauss-native}
+ \theta^2y=\frac{q}{2(1-q)}\theta y+
+                 \frac{5q}{144(1-q)}y.
+\end{equation}
+For clarity, the corresponding ordinary derivative equation is
+\[
+ y''=\left(-\frac1q+\frac1{2(1-q)}\right)y'
+                   +\frac5{144q(1-q)}y,
+\]
+where these primes mean $q$ derivatives.
+
+Define the two differential expressions
+\[
+\begin{aligned}
+ \mathcal E_2y&=144(1-q)\theta^2y-72q\theta y-5qy,\\
+ \mathcal E_3f&=72(1-q)\theta^3f
+                      -q(108\theta^2f+46\theta f+5f).
+\end{aligned}
+\]
+The product rule, without any transformation formula as an input, gives
+\begin{equation}\label{eq:gauss-symmetric-square-identity}
+ \mathcal E_3(y^2)
+       =y\theta(\mathcal E_2y)+3(\theta y)\mathcal E_2y.
+\end{equation}
+For example, the expansion of either side is
+\[
+144(1-q)y\theta^3y+432(1-q)(\theta y)(\theta^2y)
+-216qy\theta^2y-216q(\theta y)^2-92qy\theta y-5qy^2.
+\]
+Consequently $g^2$ is annihilated by $\mathcal E_3$.
+The series $F$ is annihilated by the same expression, since
+\begin{equation}\label{eq:gauss-native-recurrence}
+ n^3 f_n=(n-5/6)(n-1/2)(n-1/6)f_{n-1}
+ \qquad(n\geq1).
+\end{equation}
+This recurrence uniquely determines every analytic solution from its
+constant coefficient: the multiplier $n^3$ is nonzero for $n\geq1$.
+The function $g$ is analytic near zero because $p(0)=0$ and the square
+root in \eqref{eq:gauss-p-g-Z} is analytic there.  Since $g(0)^2=F(0)=1$,
+the recurrence proves equality near zero.  Both sides are real analytic
+on the connected interval $(0,1)$, so
+\begin{equation}\label{eq:symmetric-square}
+                         F(q)=g(q)^2\qquad(0<q<1).
+\end{equation}
+This last continuation can equivalently be obtained by uniqueness for
+the nonsingular third-order ordinary equation on each compact
+subinterval of $(0,1)$.
+
+\subsection{A signed algebraic transformation}
+
+For every real $h>8$, set
+\begin{equation}\label{eq:gauss-h-parameters}
+\begin{aligned}
+ v_1(h)&=\frac{(h-8)\sqrt{h+64}}{(h+16)^{3/2}},&
+ p_1(h)&=\frac{1-v_1(h)}2,&
+ q_1(h)&=\frac{1728h}{(h+16)^3},\\
+ v_2(h)&=\frac{(h-512)\sqrt{h+64}}{(h+256)^{3/2}},&
+ p_2(h)&=\frac{1-v_2(h)}2,&
+ q_2(h)&=\frac{1728h^2}{(h+256)^3},\\
+ L(h)&=\left(\frac{h+256}{h+16}\right)^{1/4}.&&&
+\end{aligned}
+\end{equation}
+We will prove the identity of actual functions
+\begin{equation}\label{eq:gauss-signed-transformation}
+                         H(p_2(h))=L(h)H(p_1(h))
+                         \qquad(h>8).
+\end{equation}
+The numerator $h-512$ is signed throughout this assertion.
+
+Here is a direct pullback and normalization proof, including the
+rational identities needed to check its gauge.  Put $z=1/h$ and
+\[
+ S=1+64z,\qquad d_1=1+16z,\qquad d_2=1+256z,
+ \qquad \Delta=z\frac{d}{dz}.
+\]
+The functions $\widetilde p_i(z)=p_i(1/z)$ extend analytically to zero
+by the explicit formulas
+\begin{equation}\label{eq:gauss-z-parameters}
+ \widetilde p_1=\frac{1-(1-8z)\sqrt S/d_1^{3/2}}2,
+ \qquad
+ \widetilde p_2=\frac{1-(1-512z)\sqrt S/d_2^{3/2}}2.
+\end{equation}
+The elementary polynomial identities
+\begin{equation}\label{eq:gauss-z-discriminants}
+ d_1^3-(1-8z)^2S=1728z^2,
+ \qquad d_2^3-(1-512z)^2S=1728z
+\end{equation}
+imply
+\[
+ \widetilde p_1(1-\widetilde p_1)=\frac{432z^2}{d_1^3},
+ \qquad
+ \widetilde p_2(1-\widetilde p_2)=\frac{432z}{d_2^3}.
+\]
+In particular $0<\widetilde p_i<1$ when $0<z<1/8$; the first one is
+also less than $1/2$ because $1-8z>0$.
+
+Differentiating the literal signed expressions gives
+\begin{equation}\label{eq:gauss-corrected-z-derivatives}
+ \frac{d\widetilde p_1}{dz}=\frac{864z}{\sqrt S\,d_1^{5/2}},
+ \qquad
+ \frac{d\widetilde p_2}{dz}=\frac{432}{\sqrt S\,d_2^{5/2}}.
+\end{equation}
+For an explicit check of these derivative numerators,
+\[
+\begin{aligned}
+ -8Sd_1+(1-8z)(32d_1-24S)&=-1728z,\\
+ -512Sd_2+(1-512z)(32d_2-384S)&=-864.
+\end{aligned}
+\]
+Thus there is no extra factor $1-8z$ in either derivative.  Their
+logarithmic derivatives on $0<z<1/8$ are
+\begin{equation}\label{eq:gauss-z-log-derivatives}
+ \frac{\widetilde p_1''}{\widetilde p_1'}
+     =\frac1z-\frac{32}{S}-\frac{40}{d_1},
+ \qquad
+ \frac{\widetilde p_2''}{\widetilde p_2'}
+     =-\frac{32}{S}-\frac{640}{d_2},
+\end{equation}
+where the derivatives in this display are with respect to $z$.
+
+For any such pullback $Y(z)=H(\widetilde p(z))$, the chain rule in
+\eqref{eq:gauss-ordinary-equation} yields
+\[
+ \Delta^2Y+B\Delta Y+CY=0,
+\]
+with the explicit coefficients
+\begin{equation}\label{eq:gauss-general-pullback}
+ B=\frac{z\widetilde p'(1-2\widetilde p)}
+               {\widetilde p(1-\widetilde p)}
+               -1-\frac{z\widetilde p''}{\widetilde p'},
+ \qquad
+ C=-\frac5{36}\frac{z^2(\widetilde p')^2}
+                         {\widetilde p(1-\widetilde p)}.
+\end{equation}
+All divisions here are legitimate by
+\eqref{eq:gauss-z-discriminants} and
+\eqref{eq:gauss-corrected-z-derivatives}.  Substitution gives
+\begin{equation}\label{eq:gauss-corrected-z-coefficients}
+\begin{aligned}
+ B_1&=z\left(-\frac8{d_1}+\frac{32}{S}\right),&
+ C_1&=-\frac{240z^2}{Sd_1^2},\\
+ B_2&=z\left(-\frac{128}{d_2}+\frac{32}{S}\right),&
+ C_2&=-\frac{60z}{Sd_2^2}.
+\end{aligned}
+\end{equation}
+For instance the first fractions in the expressions for $B_1,B_2$
+in \eqref{eq:gauss-general-pullback} are respectively
+$2(1-8z)/d_1$ and $(1-512z)/d_2$; together with
+\eqref{eq:gauss-z-log-derivatives} these produce exactly the displayed
+$B_i$.
+
+Let
+\[
+ \mathcal L(z)=\left(\frac{d_2}{d_1}\right)^{1/4},
+ \qquad \mu(z)=\frac{\mathcal L'(z)}{\mathcal L(z)}
+                  =\frac{60}{d_1d_2}.
+\]
+Its ordinary $z$ derivative is
+\[
+ \mu'=-\frac{60(16d_2+256d_1)}{d_1^2d_2^2}
+      =-\frac{60(272+8192z)}{d_1^2d_2^2}.
+\]
+The gauge identities are
+\begin{equation}\label{eq:gauss-z-gauge-identities}
+ B_1=B_2+2z\mu,
+ \qquad
+ C_1=C_2+z^2(\mu'+\mu^2)+z(1+B_2)\mu.
+\end{equation}
+The first follows from $-8d_2+128d_1=120$.  To verify the second
+without an implicit computational certificate, multiply it by
+$Sd_1^2d_2^2$ and use this polynomial identity:
+\begin{equation}\label{eq:gauss-z-gauge-polynomial}
+\begin{aligned}
+ -240z^2d_2^2+60zd_1^2
+  ={}&Sz^2(3600-960d_2-15360d_1)
+       +60zSd_1d_2\\
+     &{}-7680z^2Sd_1+1920z^2d_1d_2.
+\end{aligned}
+\end{equation}
+It is an identity after $S=1+64z$, $d_1=1+16z$ and $d_2=1+256z$
+are inserted.
+
+We also give the ordinary $h$ equations explicitly.  Since
+$\Delta=-h\,d/dh$ on a function pulled back by $z=1/h$, the corrected
+coefficients \eqref{eq:gauss-corrected-z-coefficients} imply
+\begin{equation}\label{eq:gauss-h-equations}
+ Y_i''+a_iY_i'+b_iY_i=0,\qquad Y_i(h)=H(p_i(h)),
+\end{equation}
+where these primes are $h$ derivatives and
+\begin{equation}\label{eq:gauss-h-coefficients}
+\begin{aligned}
+ a_1&=\frac1h\left(1+\frac8{h+16}-\frac{32}{h+64}\right),&
+ b_1&=-\frac{240}{h(h+64)(h+16)^2},\\
+ a_2&=\frac1h\left(1+\frac{128}{h+256}-\frac{32}{h+64}\right),&
+ b_2&=-\frac{60}{(h+64)(h+256)^2}.
+\end{aligned}
+\end{equation}
+Indeed $a_i=(1-B_i(1/h))/h$ and $b_i=C_i(1/h)/h^2$.
+Writing
+\begin{equation}\label{eq:gauss-h-lambda}
+ \mu_h(h)=\frac{L'(h)}{L(h)}
+      =-\frac{60}{(h+16)(h+256)},
+ \qquad
+ \mu_h'(h)=\frac{60(2h+272)}{(h+16)^2(h+256)^2},
+\end{equation}
+the same identities become
+\begin{equation}\label{eq:gauss-h-gauge-identities}
+ a_1=a_2+2\mu_h,
+ \qquad b_1=b_2+\mu_h'+\mu_h^2+a_2\mu_h.
+\end{equation}
+For the second conversion, explicitly
+$\mu_h=-\mu(1/h)/h^2$ and
+\[
+ \mu_h'+\mu_h^2+a_2\mu_h
+ =\frac{\mu'(1/h)+\mu(1/h)^2}{h^4}
+   +\frac{(1+B_2(1/h))\mu(1/h)}{h^3}
+ =\frac{C_1(1/h)-C_2(1/h)}{h^2}.
+\]
+Thus the product rule proves that $LY_1$ satisfies the second
+ordinary equation:
+\[
+ (LY_1)''+a_2(LY_1)'+b_2LY_1
+ =L\{Y_1''+(2\mu_h+a_2)Y_1'
+          +(\mu_h'+\mu_h^2+a_2\mu_h+b_2)Y_1\}=0.
+\]
+
+It remains to fix the actual solution, rather than only its equation.
+Both $H(\widetilde p_2(z))$ and
+$\mathcal L(z)H(\widetilde p_1(z))$ are analytic near zero, take the
+value one there, and satisfy
+$\Delta^2Y+B_2\Delta Y+C_2Y=0$; the displayed formulas give
+$\widetilde p_1(0)=\widetilde p_2(0)=0$ and $\mathcal L(0)=1$.
+The rational functions $B_2,C_2$
+are analytic and vanish at zero.  If their two solutions differed,
+the first nonzero term of their analytic difference would be
+$cz^m$ with $m\geq1$.  The coefficient of $z^m$ in its equation
+would then be $m^2c$, because the other two terms have higher order.
+This contradicts $c\ne0$.  Hence the solutions agree near $z=0$.
+On $h>8$ the coefficients \eqref{eq:gauss-h-coefficients} are
+continuous and the equation is nonsingular.  Ordinary initial-value
+uniqueness continues the equality from sufficiently large $h$ to
+the entire connected interval $h>8$, proving
+\eqref{eq:gauss-signed-transformation}.  This uniqueness step requires
+only the usual local uniqueness for a linear first-order system:
+on a compact interval its bounded coefficient matrix gives uniqueness
+by the integral equation and Gronwall's inequality.
+
+All functions in \eqref{eq:gauss-h-parameters} are smooth at $h=512$.
+In particular $p_2(512)=1/2$ and $H$ is analytic there; the proof makes
+no change of branch at that point.  Differentiating the actual identity
+now gives the fully explicit ordinary derivative identity
+\begin{equation}\label{eq:gauss-actual-h-derivative}
+ -\frac{432h\,H'(p_2(h))}{\sqrt{h+64}(h+256)^{5/2}}
+ =L(h)\left\{
+     -\frac{60H(p_1(h))}{(h+16)(h+256)}
+     -\frac{864H'(p_1(h))}{\sqrt{h+64}(h+16)^{5/2}}
+          \right\}.
+\end{equation}
+Here the two chain derivatives are exactly
+$p_1'(h)=-864/[\sqrt{h+64}(h+16)^{5/2}]$ and
+$p_2'(h)=-432h/[\sqrt{h+64}(h+256)^{5/2}]$.
+
+\subsection{The Euler endpoint and the normalized Wronskian}
+
+We derive the normalization from an integral, including its
+differentiated endpoint.  For $x,y>0$ write
+$B(x,y)=\int_0^1t^{x-1}(1-t)^{y-1}\,dt$.
+The change of variable $t=r/(1+r)$ and then $r=w^6$ gives
+\[
+ B(5/6,1/6)=\int_0^\infty\frac{r^{-1/6}}{1+r}\,dr
+                         =6\int_0^\infty\frac{w^4}{1+w^6}\,dw.
+\]
+Here is an elementary residue evaluation of the last integral.  The
+upper half-plane poles of $w^4/(1+w^6)$ are
+$\exp(i\pi/6),i,\exp(5i\pi/6)$, and the residue at a pole $\zeta$
+is $1/(6\zeta)$.  Their sum is
+\[
+ \frac16\{e^{-i\pi/6}+e^{-i\pi/2}+e^{-5i\pi/6}\}
+                         =-\frac i3.
+\]
+For a semicircle of radius $R\geq2$ the absolute value of the
+integrand is at most $2/R^2$, so its arc integral tends to zero.
+The residue theorem therefore gives
+$\int_{-\infty}^{\infty}w^4/(1+w^6)\,dw=2\pi/3$.
+The integrand is even, and consequently
+\begin{equation}\label{eq:gauss-beta-normalization}
+                              B(5/6,1/6)=2\pi.
+\end{equation}
+
+For $0\leq x<1$, binomial expansion in the positive integral yields
+\begin{equation}\label{eq:gauss-euler-integral}
+ H(x)=\frac1{2\pi}\int_0^1
+       t^{-1/6}(1-t)^{-5/6}(1-xt)^{-1/6}\,dt.
+\end{equation}
+To see the coefficients without assuming an Euler formula, integration
+by parts gives $B(a+1,b)=aB(a,b)/(a+b)$ for $a,b>0$.
+Indeed the integral of $(t^a(1-t)^b)'$ is zero, and
+$B(a,b)=B(a+1,b)+B(a,b+1)$.
+It follows that
+$B(5/6+n,1/6)/B(5/6,1/6)=(5/6)_n/n!$.
+Inserting the binomial coefficients $(1/6)_n/n!$ in the integral
+therefore produces exactly \eqref{eq:gauss-definitions}; monotone
+convergence justifies the interchange for $0\leq x<1$.
+
+On every compact interval $0\leq x\leq r<1$, differentiation under
+this integral is justified by the integrable majorant
+\[
+ \frac{(1-r)^{-7/6}}{12\pi}
+                       t^{5/6}(1-t)^{-5/6}.
+\]
+Thus the derivative of the actual function is
+\begin{equation}\label{eq:gauss-differentiated-euler}
+ H'(x)=\frac1{12\pi}\int_0^1
+       t^{5/6}(1-t)^{-5/6}(1-xt)^{-7/6}\,dt.
+\end{equation}
+Take $x=1-\delta$ with $0<\delta\leq1/2$, first set $r_0=1-t$
+and then $r_0=\delta v$.  This gives the exact equation
+\begin{equation}\label{eq:gauss-scaled-derivative-integral}
+ \delta H'(1-\delta)=\frac1{12\pi}\int_0^{1/\delta}
+    (1-\delta v)^{5/6}v^{-5/6}
+                  \{1+(1-\delta)v\}^{-7/6}\,dv.
+\end{equation}
+Extend this integrand by zero for $v>1/\delta$.  It is bounded by
+$v^{-5/6}(1+v/2)^{-7/6}$, which is integrable: it is $O(v^{-5/6})$
+at zero and $O(v^{-2})$ at infinity.  Dominated convergence and the
+substitution $w=v/(1+v)$ now give
+\[
+ \int_0^\infty v^{-5/6}(1+v)^{-7/6}\,dv
+                      =\int_0^1w^{-5/6}\,dw=6.
+\]
+Consequently
+\begin{equation}\label{eq:gauss-differentiated-endpoint}
+                       \lim_{\delta\downarrow0}
+                       \delta H'(1-\delta)=\frac1{2\pi}.
+\end{equation}
+
+The undifferentiated integral has a sufficient elementary bound of its
+own: $1-(1-\delta)t\geq\delta$ for $0\leq t\leq1$.  By
+\eqref{eq:gauss-beta-normalization} and
+\eqref{eq:gauss-euler-integral},
+\begin{equation}\label{eq:gauss-endpoint-bound}
+ 0<H(1-\delta)\leq\delta^{-1/6},\qquad
+ 0<\delta H(1-\delta)\leq\delta^{5/6}\longrightarrow0
+ \qquad(\delta\downarrow0).
+\end{equation}
+
+For $0<q<1$ define the Euler Wronskian
+\[
+                \mathcal W(q)=g(q)\theta Z(q)-(\theta g(q))Z(q).
+\]
+Equation \eqref{eq:gauss-native} gives
+\[
+ \theta\mathcal W=\frac{q}{2(1-q)}\mathcal W,
+ \qquad \frac{d}{dq}\{\sqrt{1-q}\,\mathcal W(q)\}=0.
+\]
+Its constant is fixed by \eqref{eq:gauss-differentiated-endpoint}:
+as $q\downarrow0$, $p(q)=q/4+O(q^2)$ and
+\[
+ \frac{q\,p'(q)}{p(q)}=\frac{1+\sqrt{1-q}}{2\sqrt{1-q}}\longrightarrow1,
+ \qquad
+ \theta Z(q)=-q\,p'(q)H'(1-p(q))\longrightarrow-\frac1{2\pi}.
+\]
+Also $g(q)\to1$ and $\theta g(q)=q\,p'(q)H'(p(q))=O(p(q))$:
+$H'$ is bounded near zero and $q/p(q)\to4$.
+The independent bound \eqref{eq:gauss-endpoint-bound} therefore gives
+$(\theta g(q))Z(q)=O(p(q)^{5/6})\to0$.
+We have proved
+\begin{equation}\label{eq:gauss-normalized-wronskian}
+ g(q)\theta Z(q)-(\theta g(q))Z(q)
+                         =-\frac1{2\pi\sqrt{1-q}}.
+\end{equation}
+In particular the derivative normalization comes directly from the
+differentiated integral and its integrable bound, not from
+differentiating a remainder in a bare logarithmic expansion.
+
+\subsection{The actual contact at \texorpdfstring{$h=64$}{h=64}}
+
+Put $u=27/125$ and $s_u=\sqrt{1-u}=7\sqrt{10}/25$.
+Substitution in \eqref{eq:gauss-h-parameters} gives
+\begin{equation}\label{eq:gauss-contact-parameters}
+\begin{aligned}
+ q_1(64)&=q_2(64)=u,&L(64)&=\sqrt2,\\
+ v_1(64)&=s_u,&v_2(64)&=-s_u,\\
+ p_1(64)&=p(u),&p_2(64)&=1-p(u).
+\end{aligned}
+\end{equation}
+Therefore the actual transformation already proves
+\begin{equation}\label{eq:gauss-contact-value}
+                               Z(u)=\sqrt2\,g(u).
+\end{equation}
+On a neighborhood of $h=64$ contained in $(8,512)$ the positive-root
+definition in \eqref{eq:gauss-p-g-Z} satisfies
+$p_1(h)=p(q_1(h))$ and $p_2(h)=1-p(q_2(h))$.
+This follows from $4p_i(1-p_i)=q_i$, $v_1>0$ and $v_2<0$,
+which are also consequences of \eqref{eq:gauss-z-discriminants}.
+We may consequently differentiate the actual equality
+$Z(q_2(h))=L(h)g(q_1(h))$ on that neighborhood.
+The three logarithmic derivatives are
+\[
+ \frac{q_1'}{q_1}=\frac1h-\frac3{h+16},\qquad
+ \frac{q_2'}{q_2}=\frac2h-\frac3{h+256},\qquad
+ \frac{L'}L=-\frac{60}{(h+16)(h+256)},
+\]
+so at $h=64$ their values are $-7/320$, $7/320$ and $-3/1280$.
+The differentiated identity is thus
+\[
+ \frac7{320}\theta Z(u)
+       =\sqrt2\left\{-\frac3{1280}g(u)
+                                  -\frac7{320}\theta g(u)\right\},
+\]
+or, equivalently,
+\begin{equation}\label{eq:gauss-contact-theta}
+             \theta Z(u)=-\sqrt2\,\theta g(u)
+                                      -\frac{3\sqrt2}{28}g(u).
+\end{equation}
+This relation uses the ordinary derivative of an identity on an open
+interval, with all moving parameters and the derivative of $L$ retained.
+
+Finally insert \eqref{eq:gauss-contact-value} and
+\eqref{eq:gauss-contact-theta} into
+\eqref{eq:gauss-normalized-wronskian}, and use
+$F=g^2$ and $\theta F=2g\theta g$ from
+\eqref{eq:symmetric-square}.  It follows that
+\[
+ -\sqrt2\left\{\theta F(u)+\frac3{28}F(u)\right\}
+                         =-\frac1{2\pi s_u}.
+\]
+Since $s_u=7\sqrt{10}/25$, this is the required native certificate
+\begin{equation}\label{eq:native-value}
+ \boxed{\displaystyle
+             3F\left(\frac{27}{125}\right)
+                +28\theta F\left(\frac{27}{125}\right)
+                           =\frac{5\sqrt5}{\pi}.}
+\end{equation}
+
+\section{Completion of the series evaluation}
+Equation~\eqref{eq:native-value} substituted in~\eqref{eq:residue-square}
+gives
+\[
+ \mathfrak b(0+)=\frac{(5\sqrt5/\pi)^2}{4500}
+              =\frac{1}{36\pi^2}.
+\]
+Together with~\eqref{eq:lower-outer}, this gives
+$\mathcal E(0+)=1/(36\pi^2)$. The upper limit is
+\eqref{eq:upper-full}, and the escape singularity has been removed.
+On every closed subinterval of $(0,1)$ the extended primitive satisfies
+\eqref{eq:primitive-derivative}. The loaded radial integrand is continuous
+and bounded on $[0,1]$, by its uniformly convergent polynomial-geometric
+series. Applying the fundamental theorem of calculus first away from
+the endpoints and then taking their limits yields
+\[
+ \int_0^1Q(\theta_\lambda)h\bigl(\rho(1-U^2)^3\bigr)\,\dd U
+   =3375\{\mathcal E(0+)-\mathcal E(1-)\}
+   =\frac{3375}{36\pi^2}=\frac{375}{4\pi^2}.
+\]
+Finally~\eqref{eq:radial} identifies this entire integral with the
+literal factorial series in Theorem~\ref{thm:main}, proving the theorem.
+
+\appendix
+\section{A finite rational certificate for the source row}
+\label{app:certificates}
+
+This appendix supplies the rational identities used in the contour
+comparison.  In particular, it includes an actual primitive, rather than a
+rank computation or a numerical fit.  Everything in the certificate is
+defined below over rational function fields.  The contour's analytic
+boundary and normalization are the statements proved in the main text;
+finite algebra by itself would not establish those statements.
+
+Write
+\[
+ \rho=\frac{729}{15625},\qquad x=1-U^2,\qquad
+ \lambda=\rho x^3,\qquad b=\frac{\lambda}{s},\qquad
+ \tau=2\pi i.
+\]
+All coefficient rows act on solution columns.  Thus their covariant
+differential has a \emph{plus} sign.  Tensor coordinates are ordered
+\((00,01,02,10,11,12,20,21,22)\).
+
+\subsection{The complete source coefficient}
+
+The ordinary elliptic symmetric-square state is
+\((y^2,2yy',y'^2)^{\mathsf T}\); its third entry is not the second
+derivative of its first entry.  Its connection and Euler gauge are
+\[
+ \mathsf A(q)=\begin{pmatrix}0&1&0\\2c(q)&-a(q)&2\\0&c(q)&-2a(q)\end{pmatrix},
+ \quad a(q)=\frac{1-3q/2}{q(1-q)},\quad
+ c(q)=\frac{5}{144q(1-q)},
+\]
+\[
+ \mathsf G(q)=\begin{pmatrix}
+ 1&0&0\\0&q&0\\
+ \dfrac{5q}{72(1-q)}&\dfrac{q^2}{2(1-q)}&2q^2
+ \end{pmatrix},\qquad
+ N(q)=\begin{pmatrix}0&1&0\\0&0&1\\
+ \dfrac{5q}{72(1-q)}&\dfrac{23q}{36(1-q)}&\dfrac{3q}{2(1-q)}
+ \end{pmatrix}.
+\]
+They satisfy \(\mathsf G'+\mathsf G\mathsf A=(N/q)\mathsf G\).  The solution-state form and its useful
+product with the gauge are
+\[
+ J_C(q)=\begin{pmatrix}
+ -5q/36&-q/2&1-q\\-q/2&q-1&0\\1-q&0&0
+ \end{pmatrix}.
+\]
+\[
+ T(q)=J_C(q)\mathsf G(q)=\begin{pmatrix}
+ -5q/72&0&2q^2(1-q)\\-q/2&q(q-1)&0\\1-q&0&0
+ \end{pmatrix}.
+\]
+
+Here are the coefficient polynomials of the literal rational source.
+Put
+\begin{align*}
+ d&=x^4(25-9x)(99x-50)^2,&
+ K_2&=81x^2-198x+80,\\
+ K_3&=243x^3-1053x^2+1266x-400,&
+ K_6&=59049x^6-511758x^5+1724085x^4\\
+ &&&\quad-2860596x^3+2441988x^2-1011200x+160000,\\
+ k&=\frac{1953125}{209952},&j&=\frac{244140625}{944784},\\
+ v&=\frac{3906250}{6561},&c_*&=\frac{30517578125}{8503056}.
+\end{align*}
+Then
+\[
+ L_P=\begin{pmatrix}
+ 0&0&-k(9x-25)K_2K_3\\
+ 0&0&j(9x-25)K_2\\
+ k(9x-25)K_2K_3&-j(9x-25)K_2&0
+ \end{pmatrix}.
+\]
+\[
+ R_P=\begin{pmatrix}
+ 0&0&kK_6\\0&vx(99x-50)&-jK_3\\kK_6&-jK_3&c_*
+ \end{pmatrix}.
+\]
+For compact notation put \(L=U L_P/d\) and \(R=R_P/d\).  Define
+\[
+ m=\frac{27x(80-99x+27x^2)}{1000},\quad
+ \ell_0=\frac{27x(9x-16)}{1000},\quad
+ \ell=U\ell_0,\quad M=25-9x,
+\]
+\[
+ z=s-m,\qquad f=z^2-\ell^2M=s^2-2ms+\lambda.
+\]
+The entire rational coefficient one-form is
+\begin{equation}\label{eq:appendix-beta}
+ \beta_N=\frac{L\,\dd f+R(2\ell M\,\dd z-2zM\,\dd\ell-z\ell\,\dd M)}{f}
+           =T_U\,\dd U+U T_s\,\dd s,
+\end{equation}
+where, with primes denoting \(\partial_x\) at fixed \(s\),
+\begin{align}
+ T_s&=\frac{2L_P(s-m)+2\ell_0M R_P}{df},\label{eq:appendix-Ts}\\
+ T_U&=\frac{-2(1-x)L_P f_x
+ -2R_P\{-2\ell_0(1-x)Mm'+(s-m)[(\ell_0-2(1-x)\ell_0')M+9(1-x)\ell_0]\}}{df}.
+ \label{eq:appendix-TU}
+\end{align}
+Thus the correction has not been omitted or absorbed into an unspecified
+boundary term.  The relation to the main coefficients is \(B_s=UT_s\) and \(B_U=T_U\).
+Taking their covariant derivatives gives
+\begin{align}
+ \mathsf K={}&-T_s+2(1-x)\partial_xT_s
+ -\frac{6(1-x)b}{x}T_s \mathsf A(b)^{\mathsf T}\notag\\
+ &+\partial_sT_U-\mathsf A(s)T_U+\frac bsT_U \mathsf A(b)^{\mathsf T},
+ \label{eq:appendix-alpha}\\
+ \mathfrak q&=\operatorname{flatten}\bigl(T(s)\mathsf K T(b)^{\mathsf T}\bigr).
+ \label{eq:appendix-Q}
+\end{align}
+In particular, the source row against the native product
+Euler state is \(\mathfrak q\,\dd U\wedge\dd s\).
+Thus \(\mathfrak q=\operatorname{flatten}(\mathsf S)\) in
+the notation of the main text. Formula
+\eqref{eq:appendix-alpha} is simply
+\(-\nabla_U B_s+\nabla_s B_U\), with \(x_U=-2U\) and
+\(b_U=-6Ub/x\); these identities fix both its sign and its chain-rule
+terms.
+
+\subsection{Angular normal form and its six-state action}
+
+Let
+\[
+ J=\begin{pmatrix}0&1&0\\0&0&1\\0&0&0\end{pmatrix},\qquad
+ \ww=\begin{pmatrix}5/72&23/36&3/2\end{pmatrix},\qquad E=\e_2^{\tr}\ww,
+\]
+Here \(\e_2=(0,0,1)\) is the standard row, as in the main text.  Over \(\mathbb Q(\lambda)(s)\),
+\[
+ \mathcal M_s=\frac{N(s)\otimes I-I\otimes N(\lambda/s)}s
+ =\frac{R_0}s+\frac{R_1}{s-1}+\frac{R_\lambda}{s-\lambda},
+\]
+\[
+ R_0=J\otimes I-I\otimes(J-E),\qquad
+ R_1=-E\otimes I,\qquad R_\lambda=-I\otimes E.
+\]
+For a six-row \(v=(a_0,a_1,a_2,b_0,b_1,b_2)=(a,b_*)\), define
+\begin{equation}\label{eq:appendix-NF}
+ \operatorname{NF}(v)=\frac{\ww\otimes a}{s-1}
+                         +\frac{b_*\otimes \ww}{s-\lambda}.
+\end{equation}
+The six standard coordinate rows under this formula are the six angular
+basis representatives.  Their induced \(D_\lambda\) action is
+\begin{equation}\label{eq:appendix-B6}
+ B_6(\lambda)=\begin{pmatrix}
+ J+\dfrac{\lambda E}{1-\lambda}&-\dfrac{\lambda E}{1-\lambda}\\[2pt]
+ -\dfrac{E}{1-\lambda}&J+\dfrac{\lambda E}{1-\lambda}
+ \end{pmatrix}.
+\end{equation}
+This assertion includes an explicit angular primitive.  For a constant
+row \(v=(a,b_*)\), put
+\(p_v=-s(b_*\otimes \ww)/(s-\lambda)\).  Entrywise,
+\begin{equation}\label{eq:appendix-six-action}
+ \lambda\partial_\lambda\operatorname{NF}(v)
+ +\operatorname{NF}(v)(I\otimes N(\lambda/s))
+ -\operatorname{NF}(vB_6)
+ =\partial_sp_v+p_v\mathcal M_s.
+\end{equation}
+For the first three basis rows \(p_v=0\).
+
+The coefficient one-form for the anchor is \(\omega_0=e_{00}\,\dd s/s\),
+whose normalized contour integral is the scalar function \(h\).  If
+\(\eta_0=e_{00}R_0^{-1}\), its exact angular identity is
+\(e_{00}/s=\operatorname{NF}(c_0)+\eta_0\mathcal M_s\).  The coordinate rows of
+\(\omega_0,D_\lambda\omega_0,\ldots,D_\lambda^5\omega_0\) form the following full matrix:
+\begin{equation}\label{eq:appendix-C}
+ C=\begin{pmatrix}
+ 49456/125&153648/125&113472/125&72/5&-3312/25&113472/125\\
+ -1576/25&-4608/25&-3312/25&0&72/5&-3312/25\\
+ 46/5&108/5&72/5&0&0&72/5\\
+ -1&0&0&0&0&0\\0&-1&0&0&0&0\\0&0&-1&0&0&0
+ \end{pmatrix}.
+\end{equation}
+Writing its rows as \(c_0,\ldots,c_5\), one has
+\(c_jB_6=c_{j+1}\) for \(0\le j<5\) and
+\(\det C=373248/125\).  These are identities in the full six-state
+system.
+
+For completeness, the angular elimination used below is finite and
+unambiguous.  At a finite puncture \(p\), a leading pole row
+\(v/(s-p)^m\), \(m\ge2\), is removed by subtracting the covariant
+derivative of
+\[
+ \frac{v(R_p-(m-1)I)^{-1}}{(s-p)^{m-1}}.
+\]
+At infinity a polynomial leading row \(v s^d\) is removed by subtracting
+the derivative of
+\(v((d+1)I+R_0+R_1+R_\lambda)^{-1}s^{d+1}\).
+The eigenvalues of \(R_0\) are \(1/6,1/2,5/6\), each repeated three
+times; those of \(R_1,R_\lambda\) are \(0\) and \(-3/2\);
+those of \(R_0+R_1+R_\lambda\) are
+\(-1/6,-1/2,-5/6\), each repeated three times.  Every inverse just used
+therefore exists.  A final constant primitive removes the simple zero
+residue because \(R_0\) is invertible.  Finite primitives decay at
+infinity and create only simple poles at other finite punctures;
+polynomial primitives also create only simple finite poles.  Thus each
+step strictly lowers the relevant higher pole or polynomial degree and
+the procedure terminates.  The same leading-coefficient argument proves
+uniqueness of the remaining form
+\(v_1/(s-1)+v_\lambda/(s-\lambda)\).
+
+Applying this stated procedure to \eqref{eq:appendix-Q} gives a rational
+row \(\eta_S\) and six-row \(G(x)\) satisfying
+\begin{equation}\label{eq:appendix-angular-source}
+ \mathfrak q=\operatorname{NF}(G)+\partial_s\eta_S+\eta_S\mathcal M_s.
+\end{equation}
+The listing below constructs and retains the primitive;
+its variable \texttt{eta}, divided by the coefficient-field
+scaling \(\texttt{scale}=x^5(9x-25)(99x-50)^3\), is \(\eta_S\). It verifies this
+entire nine-entry identity and the factorization of both residues in
+\eqref{eq:appendix-NF}.  No unspecified angular witness is needed.
+
+\subsection{The outer primitive and all its coefficients}
+
+Use the six-coordinate solution column \(\mathcal V\) obtained by
+multiplying \(\vv(\rho x^3)\) by \(U=\sqrt{1-x}\).
+Thus \(\mathcal V=U\vv(\rho x^3)\), and its ordinary \(x\)-connection is
+\[
+ M_x=\frac{3B_6(\rho x^3)}x-\frac{I}{2(1-x)}.
+\]
+Since \(\dd U=-\dd x/(2U)\), the source row and three normalized period rows
+in this frame are
+\[
+ r_S=-\frac{G}{2(1-x)},\qquad
+ H_j=-\frac{c_j+6c_{j+1}}{2(1-x)},\qquad 0\le j\le2.
+\]
+Here \(D_\lambda\) denotes the coefficient action corresponding to
+\(\theta_\lambda\); the full factor \(1+6D_\lambda\) is retained.  Define
+\[
+ (d_0,d_1,d_2)=\left(\frac1{375},\frac{14}{375},\frac{532}{3375}\right).
+\]
+An actual rational primitive is
+\begin{equation}\label{eq:appendix-xi}
+ \begin{aligned}
+ \xi(x)&=\sum_{k=1}^{15}A_k\phi_k(x),\\
+ (\phi_1,\ldots,\phi_6)&=
+ \bigl(x^{-1},x^{-2},x^{-3},x^{-4},(99x-50)^{-1},(99x-50)^{-2}\bigr),\\
+ (\phi_7,\ldots,\phi_{15})&=(1,x,\ldots,x^8).
+ \end{aligned}
+\end{equation}
+All ninety rational entries of the rows \(A_k\) appear literally in
+\texttt{COEFFICIENTS} in the listing.  No coefficient is a variable
+to be solved for.  With that witness the exact identity is
+\begin{equation}\label{eq:appendix-outer-identity}
+ r_S-d_0H_0-d_1H_1-d_2H_2=\xi'+\xi M_x.
+\end{equation}
+It can be checked by clearing denominators in six rational functions.
+Neither existence of a primitive nor a claim about a computed rank is
+a premise of this equality.
+
+The angular primitive enters the two-form identity with its wedge sign:
+the exact one-form \(-\eta_S\,\dd U\), paired with the product solution
+column, contributes
+\((\partial_s\eta_S+\eta_S\mathcal M_s)\dd U\wedge\dd s\).
+The outer term is the ordinary derivative of \(\xi\mathcal V\).
+Hence \eqref{eq:appendix-angular-source} and
+\eqref{eq:appendix-outer-identity} are the actual primitives required
+for the comparison.  Their poles at \(99x-50=0\) remain present; the contour
+truncation and endpoint argument in the main text justify applying the
+identities to the selected literal contour.
+
+\subsection{A complete exact verification recipe}
+
+The following Python listing uses only exact SymPy arithmetic.  It is a
+self-contained transcription of the finite identities: it reads no
+previous certificate or saved output, executes no solver, and contains
+the complete coefficient witness.  Equality of rational functions is
+tested by exact polynomial cancellation.  Its source is obtained from
+\eqref{eq:appendix-beta}, not inserted as a fitted six-row.  During
+angular reduction, multiplying by
+\(x^5(9x-25)(99x-50)^3\) is only a coefficient-field scaling and is
+undone in the result.  For generic \(x\) and \(\lambda\ne0,1\), all
+steps are defined; the resulting rational identities consequently hold
+throughout their domains by clearing denominators.
+
+% The complete listing is appended by the owned document generator.
+% Complete exact certificate listing.
+\begin{lstlisting}[language=Python,basicstyle=\ttfamily\scriptsize,breaklines=true,columns=fullflexible,keepspaces=true,showstringspaces=false]
+"""Standalone exact transcription check for the printed rational appendix.
+
+This file supplies its own literal inputs and never reads or executes an old
+certificate, solver, or output.  No period, target fit, or rank is an input.
+The printed 90 coefficients constitute a witness, not unknowns to be solved.
+"""
+import sympy as S
+from sympy.polys.fields import field
+import time
+
+started = time.perf_counter()
+X, Z, LAM = S.symbols('x s lambda')
+rho = S.Rational(729, 15625)
+I = S.eye(3)
+J = S.Matrix([[0, 1, 0], [0, 0, 1], [0, 0, 0]])
+w = S.Matrix([[S.Rational(5,72), S.Rational(23,36), S.Rational(3,2)]])
+E = S.zeros(3)
+E[2,:] = w
+R0 = S.kronecker_product(J,I) - S.kronecker_product(I,J-E)
+R1 = -S.kronecker_product(E,I)
+Rl = -S.kronecker_product(I,E)
+Rt = R0 + R1 + Rl
+B6 = (J + LAM*E/(1-LAM)).row_join(-LAM*E/(1-LAM)).col_join(
+    (-E/(1-LAM)).row_join(J + LAM*E/(1-LAM)))
+C = S.Matrix([
+    [S.Rational(49456,125),S.Rational(153648,125),S.Rational(113472,125),
+     S.Rational(72,5),-S.Rational(3312,25),S.Rational(113472,125)],
+    [-S.Rational(1576,25),-S.Rational(4608,25),-S.Rational(3312,25),
+     0,S.Rational(72,5),-S.Rational(3312,25)],
+    [S.Rational(46,5),S.Rational(108,5),S.Rational(72,5),0,0,S.Rational(72,5)],
+    [-1,0,0,0,0,0],[0,-1,0,0,0,0],[0,0,-1,0,0,0]])
+
+def cancel_matrix(A):
+    return A.applyfunc(S.cancel)
+
+def nf(v):
+    return (S.kronecker_product(w,v[:,:3])/(Z-1)
+            + S.kronecker_product(v[:,3:],w)/(Z-LAM))
+
+N = lambda q: J + q*E/(1-q)
+gauge = S.Matrix([[1,0,0],[0,LAM,0],
+                 [5*LAM/(72*(1-LAM)),LAM**2/(2*(1-LAM)),2*LAM**2]])
+pq,cq = (1-S.Rational(3,2)*LAM)/(LAM*(1-LAM)),5/(144*LAM*(1-LAM))
+ao = S.Matrix([[0,1,0],[2*cq,-pq,2],[0,cq,-2*pq]])
+jc = S.Matrix([[-5*LAM/36,-LAM/2,1-LAM],[-LAM/2,LAM-1,0],[1-LAM,0,0]])
+tq = S.Matrix([[-5*LAM/72,0,2*LAM**2*(1-LAM)],
+               [-LAM/2,LAM*(LAM-1),0],[1-LAM,0,0]])
+assert cancel_matrix(gauge.diff(LAM)+gauge*ao-N(LAM)*gauge/LAM) == S.zeros(3)
+assert cancel_matrix(jc*gauge-tq) == S.zeros(3)
+Ms = S.kronecker_product(N(Z),I)/Z - S.kronecker_product(I,N(LAM/Z))/Z
+Ml = S.kronecker_product(I,N(LAM/Z))
+assert cancel_matrix(Ms-R0/Z-R1/(Z-1)-Rl/(Z-LAM)) == S.zeros(9)
+for j in range(6):
+    v = S.eye(6)[j,:]
+    p = S.zeros(1,9) if j < 3 else -Z*S.kronecker_product(v[:,3:],w)/(Z-LAM)
+    assert cancel_matrix(LAM*nf(v).diff(LAM)+nf(v)*Ml-nf(v*B6)
+                         -p.diff(Z)-p*Ms) == S.zeros(1,9)
+e00 = S.eye(9)[0,:]
+anchor = e00*R0.inv()
+assert cancel_matrix(e00/Z-nf(C[0,:])-anchor*Ms) == S.zeros(1,9)
+for j in range(5):
+    assert cancel_matrix(C[j,:]*B6-C[j+1,:]) == S.zeros(1,6)
+assert C.det() == S.Rational(373248,125)
+
+# The rational beta source, with beta_N = T_U dU + U*T_s ds.
+x, s, lam = X, Z, rho*X**3
+m = 27*x*(80-99*x+27*x**2)/1000
+a = 27*x*(9*x-16)/1000
+M = 25-9*x
+D = x**4*M*(99*x-50)**2
+f = s**2-2*m*s+lam
+a2 = 81*x**2-198*x+80
+a3 = 243*x**3-1053*x**2+1266*x-400
+a6 = (59049*x**6-511758*x**5+1724085*x**4-2860596*x**3
+      +2441988*x**2-1011200*x+160000)
+k,jj,vv,cc = map(S.Rational, ['1953125/209952','244140625/944784',
+                             '3906250/6561','30517578125/8503056'])
+LP = S.Matrix([[0,0,-k*(9*x-25)*a2*a3],
+               [0,0,jj*(9*x-25)*a2],
+               [k*(9*x-25)*a2*a3,-jj*(9*x-25)*a2,0]])
+RP = S.Matrix([[0,0,k*a6],[0,vv*x*(99*x-50),-jj*a3],
+               [k*a6,-jj*a3,cc]])
+
+# These temporary matrices are the displayed beta numerators.
+# Their common scalar denominator is D*f.
+Ts = cancel_matrix(2*LP*(s-m)+2*a*M*RP)
+TU = cancel_matrix((-2*(1-x)*LP*S.diff(f,x)-2*RP*(
+     -2*a*(1-x)*M*S.diff(m,x)+(s-m)*(
+     (a-2*(1-x)*S.diff(a,x))*M+9*(1-x)*a))))
+
+# The beta numerators are polynomials in s over Q(x).
+# Clear the known connection denominator, divide by f^2 exactly, and only
+# then create rational rows.  This preserves all nine source entries.
+F, x = field('x',S.QQ)
+K, s = field('s',F.to_domain())
+z = K.zero
+lam = rho*x**3
+lift = K.ground_new
+parse = lambda q: K.from_expr(q)
+constant = lambda A: [[parse(A[i,j]) for j in range(A.cols)] for i in range(A.rows)]
+ts_fraction,tu_fraction = constant(Ts),constant(TU)
+assert all(q.denom.degree() == 0 for row in ts_fraction+tu_fraction for q in row)
+ts = [[q.numer.mul_ground(F.one/q.denom.LC) for q in row] for row in ts_fraction]
+tu = [[q.numer.mul_ground(F.one/q.denom.LC) for q in row] for row in tu_fraction]
+P = K.ring
+sp = s.numer
+pp = P.one
+zz = P.zero
+u = 1-x
+mfield = F.from_expr(m)
+dlogD = F.from_expr(S.diff(D,X)/D)
+fpoly = sp**2-2*mfield*sp+lam
+
+def dx_polynomial(p):
+    return P.from_dict({e:c.diff(x) for e,c in p.items()})
+
+fx,fs = dx_polynomial(fpoly),fpoly.diff(sp)
+angular_den = sp**2*(1-sp)*(sp-lam)
+asbar = [[zz,sp*(1-sp),zz],
+         [S.Rational(5,72)*pp,-pp+S.Rational(3,2)*sp,2*sp*(1-sp)],
+         [zz,S.Rational(5,144)*pp,-2*pp+3*sp]]
+cbbar = [[zz,lam*(sp-lam),zz],
+         [S.Rational(5,72)*sp**2,-sp**2+S.Rational(3,2)*lam*sp,2*lam*(sp-lam)],
+         [zz,S.Rational(5,144)*sp**2,-2*sp**2+3*lam*sp]]
+scale = lift(x**5*(9*x-25)*(99*x-50)**3)
+scale_over_D = -x*(99*x-50)
+alpha = [[z]*3 for _ in range(3)]
+for i in range(3):
+    for j in range(3):
+        scalar_part = (-ts[i][j]*fpoly
+            +2*u*(dx_polynomial(ts[i][j])*fpoly-ts[i][j]*fx
+                  -dlogD*ts[i][j]*fpoly)
+            +tu[i][j].diff(sp)*fpoly-tu[i][j]*fs)
+        numerator = (angular_den*scalar_part
+            -sp*(sp-lam)*sum((asbar[i][k]*tu[k][j] for k in range(3)),zz)*fpoly
+            +(1-sp)*sum((tu[i][k]*cbbar[j][k] for k in range(3)),zz)*fpoly
+            -(6*u/x)*sp*(1-sp)*sum((ts[i][k]*cbbar[j][k] for k in range(3)),zz)*fpoly)
+        quotient,remainder = numerator.div(fpoly**2)
+        assert remainder == zz
+        alpha[i][j] = K.new(quotient.mul_ground(scale_over_D),angular_den)
+print('All nine source entries pass exact zero-remainder f^2 division.', flush=True)
+
+def metric_gauge(q):
+    return [[-5*q/72,z,2*q*q*(1-q)],
+            [-q/2,q*(q-1),z],[1-q,z,z]]
+
+b = lift(lam)/s
+left,right = metric_gauge(s),metric_gauge(b)
+Q = [[sum((left[i][a]*alpha[a][c]*right[j][c]
+           for a in range(3) for c in range(3)),z)
+      for j in range(3)] for i in range(3)]
+print('Source transcribed from the complete beta formulas.', flush=True)
+
+r0,r1,rl = map(constant,[R0,R1,Rl])
+ms = [[r0[i][j]/s+r1[i][j]/(s-1)+rl[i][j]/(s-lift(lam))
+       for j in range(9)] for i in range(9)]
+
+def row_times(v,A):
+    return [sum((v[i]*A[i][j] for i in range(len(v))),z)
+            for j in range(len(A[0]))]
+
+def covariant(v):
+    return [v[j].diff(s)+q for j,q in enumerate(row_times(v,ms))]
+
+def evaluate(q,a):
+    def ev(p):
+        return sum((c*(a**e[0] if e[0] else F.one) for e,c in p.items()),F.zero)
+    return lift(ev(q.numer)/ev(q.denom))
+
+def pole_order(q,a):
+    p,linear,n = q.denom,(s-lift(a)).numer,0
+    while q:
+        quotient,remainder = p.div(linear)
+        if remainder:
+            break
+        p,n = quotient,n+1
+    return n
+
+q = [Q[i][j] for i in range(3) for j in range(3)]
+r, eta = q[:],[z]*9
+
+def subtract(p):
+    global r,eta
+    exact = covariant(p)
+    r = [r[j]-exact[j] for j in range(9)]
+    eta = [eta[j]+p[j] for j in range(9)]
+
+for a,residue in [(F.one,R1),(lam,Rl),(F.zero,R0)]:
+    while True:
+        order = max(pole_order(t,a) for t in r)
+        if order < 2:
+            break
+        lead = [evaluate(t*(s-lift(a))**order,a) for t in r]
+        inv = constant((residue-(order-1)*S.eye(9)).inv())
+        subtract([t/(s-lift(a))**(order-1) for t in row_times(lead,inv)])
+while True:
+    polynomials = [t.numer.div(t.denom)[0] for t in r]
+    degree = max(p.degree(0) if p else -1 for p in polynomials)
+    if degree < 0:
+        break
+    lead = [lift(p.get((degree,),F.zero)) for p in polynomials]
+    inv = constant(((degree+1)*S.eye(9)+Rt).inv())
+    subtract([t*s**(degree+1) for t in row_times(lead,inv)])
+subtract(row_times([evaluate(t*s,F.zero) for t in r],constant(R0.inv())))
+u = [evaluate(t*(s-1),F.one) for t in r]
+v = [evaluate(t*(s-lift(lam)),lam) for t in r]
+normal = [u[j]/(s-1)+v[j]/(s-lift(lam)) for j in range(9)]
+assert all(not (r[j]-normal[j]) for j in range(9))
+exact = covariant(eta)
+assert all(not (q[j]-normal[j]-exact[j]) for j in range(9))
+g = [u[6+j]/parse(w[0,2])/scale for j in range(3)]
+g += [v[3*j+2]/parse(w[0,2])/scale for j in range(3)]
+assert all(not (u[3*i+j]-parse(w[0,i])*g[j]*scale)
+           and not (v[3*i+j]-g[3+i]*parse(w[0,j])*scale)
+           for i in range(3) for j in range(3))
+print('Angular source identity established with its rational primitive.', flush=True)
+
+# Literal 15 by 6 coefficient table: basis order is specified below.
+COEFFICIENTS = '''
+105800/459459 867560/459459 103229200/459459 -169280/51051 -1388096/51051 -2268352/51051
+0 0 -472485400/459459 0 0 0
+0 0 338560000/196911 0 0 0
+0 0 -4232000000/4135131 0 0 0
+-78890805485931260/886402053948411 -1227125311357021190/886402053948411 -70427029255928891500/6204814377638877 -607873567055897705440/74327471429736107583 -298973396640778498112/8258607936637345287 -145365088004028281168/635277533587488099
+-231954922267076000/229807939912551 -331597299956488000/76602646637517 -108998157631733600/5892511279809 -39913346954892419000/917623104070816143 28252939480465998800/101958122674535127 -14427468858797595200/5997536627913831
+-44128649359258592/31024071888194385 623049674458568524/31024071888194385 6660655461825680912/31024071888194385 57598947351747925330/10618210204248015369 370356988491186478316/8258607936637345287 422172179336846381488/5899005669026675205
+7410960991604618219/7834361587927875000 -2244024947258679397/230422399644937500 -8368444588355333518/75330399883921875 -1674067760127596905471/469239087308940073125 -7571431721389433993041/260688381838300040625 -60217890176084166521579/1303441909191500203125
+-1014783336398633/79134965534625000 99347762374288343/39567482767312500 226386615454772638/9891870691828125 1399948922915894608/4739788760696364375 6901571092120745041/2633215978164646875 59461141531221275693/13166079890823234375
+-1051211136/19184234069 -440067361152/479605851725 -18358156683264/2398029258625 1031881871061389312/1196916353711203125 258130738760714016/40711440602421875 20750847913747165488/1994860589518671875
+1029377673/34880425580 430927242561/872010639500 4494215281788/1090013299375 -250759381828805733/558002962103125000 -14957478836244716238/4533774067087890625 -24572653010256580956/4533774067087890625
+-16224867/3170947780 -6792198219/79273694500 -70837018452/99092118125 300193629643629927/3297290230609375000 1380547922050429344/2060806394130859375 2261266906791518928/2060806394130859375
+0 0 0 -223303109482368/7493841433203125 -8431993935111168/37469207166015625 -13467359214383616/37469207166015625
+0 0 0 218665144746549/13625166242187500 2064215740879206/17031457802734375 3296911156760547/17031457802734375
+0 0 0 -3446560950471/1238651476562500 -32535799768674/1548314345703125 -51965324712513/1548314345703125
+'''
+coefficients = [[F.from_expr(S.Rational(t)) for t in line.split()]
+                for line in COEFFICIENTS.strip().splitlines()]
+assert len(coefficients) == 15 and all(len(row) == 6 for row in coefficients)
+basis = [x**(-p) for p in range(1,5)]
+basis += [(99*x-50)**(-p) for p in range(1,3)] + [x**p for p in range(9)]
+xi = [sum((coefficients[k][j]*basis[k] for k in range(15)),F.zero)
+      for j in range(6)]
+mx = [[3*F.from_expr(B6[i,j].subs(LAM,lam.as_expr()))/x
+       -(F.one/(2*(1-x)) if i == j else F.zero)
+       for j in range(6)] for i in range(6)]
+d = list(map(S.Rational,['1/375','14/375','532/3375']))
+h = [[-F.from_expr(C[k,j]+6*C[k+1,j])/(2*(1-x))
+      for j in range(6)] for k in range(3)]
+for j in range(6):
+    residual = (-g[j].as_expr()/(2*(1-X))
+                -sum(d[k]*h[k][j].as_expr() for k in range(3))
+                -xi[j].diff(x).as_expr()
+                -sum((xi[i]*mx[i][j]).as_expr() for i in range(6)))
+    assert S.cancel(residual) == 0
+assert [-81*t for t in d] == list(map(S.Rational,['-27/125','-378/125','-1596/125']))
+print('All finite printed identities hold over the rational function fields.')
+print('Elapsed seconds:', round(time.perf_counter()-started,3))
+\end{lstlisting}
+
+
+\section{Provenance and review boundary}\label{app:provenance}
+The finite rational inputs were transcribed from the frozen Row12 proof
+package associated with author commit
+\texttt{a17703b4e69a5d879d71ebd37fcaba32af45be0c}
+and strict-audit package
+\texttt{7b71f2c0f1c72798dda3e8759da4465b489366c0}.
+In that package the relevant inputs are the source-lift proof and
+\texttt{s03/LIFT\_CHECK.output.json}, the six-coordinate proof
+\texttt{s08/PROOF.md}, and the complete outer coefficients
+\texttt{s14/OUTER\_ROW\_CHECK.output.json}.
+The finite formulas and verification procedure used in this document are
+printed in Appendix~\ref{app:certificates}, so those historical files are
+provenance references rather than additional compilation inputs.
+
+The analytic scalar route was organized in
+\texttt{SCALAR\_INTEGRAL\_ROUTE.md} and checked together with the literal
+coefficient and moment bridge in the additional scalar review performed
+7 October 2026. The signed Gauss calculation uses the corrected actual
+derivatives recorded in the completed signed-Gauss Lean support package;
+the earlier unchecked draft is not a premise of this proof.
+The document-level review, its checked source version and any corrections
+are recorded next to this source in \texttt{DOCUMENT\_REVIEW.md}.
+
+The evidential status is [ARG] for the analytic derivation and [ONE] for
+the exact document-transcription checks. Human acceptance is Pending.
+The connected Lean formalization was completed on 7 October 2026. Its
+unconditional declarations are \texttt{Row12.row12\_hasSum},
+\texttt{Row12.row12\_summable} and \texttt{Row12.row12\_tsum}.
+The final statement and axiom outputs, all five verification checks and the
+fresh full-result review are retained in the separate
+\path{C5/row12_lean_2026-10-06} package. That formal result covers exactly
+the scalar equality proved here.
+\end{document}

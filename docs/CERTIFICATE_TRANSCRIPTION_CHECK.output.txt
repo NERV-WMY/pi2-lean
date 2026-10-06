@@ -1,0 +1,5 @@
+All nine source entries pass exact zero-remainder f^2 division.
+Source transcribed from the complete beta formulas.
+Angular source identity established with its rational primitive.
+All finite printed identities hold over the rational function fields.
+Elapsed seconds: 95.374
