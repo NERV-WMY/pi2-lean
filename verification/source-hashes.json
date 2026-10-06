@@ -1,0 +1,401 @@
+{
+  "pins": {
+    "lean": "leanprover/lean4:v4.33.1",
+    "mathlib": "db584cd6d46c92f209a44c0f1c829460d327499d"
+  },
+  "sources": [
+    {
+      "path": "Row12.lean",
+      "sha256": "4edb6fe83436dd7b838ade4a08273f6a1a0960b6f603f3003d76dbf1565c046a",
+      "original": "C5/row12_lean_2026-10-06/Row12.lean"
+    },
+    {
+      "path": "Row12/ActualResidue.lean",
+      "sha256": "8b92a957acdd1e747bedd7706e98d9c8b07b34b9c5d7733d035bf03016d861cc",
+      "original": "C5/row12_lean_2026-10-06/Row12/ActualResidue.lean"
+    },
+    {
+      "path": "Row12/AnalyticSecondUniqueness.lean",
+      "sha256": "6cbe36c7734fb3b969291f872d8f102bd4fa7dc54bdedb880b0a63a1ecb8c00b",
+      "original": "C5/row12_lean_2026-10-06/Row12/AnalyticSecondUniqueness.lean"
+    },
+    {
+      "path": "Row12/AngularBridge.lean",
+      "sha256": "30ecc468c8999b36be24faf01e9bbaac596efaa05dab48a0a92ef5e0b679a8af",
+      "original": "C5/row12_lean_2026-10-06/Row12/AngularBridge.lean"
+    },
+    {
+      "path": "Row12/AngularContour.lean",
+      "sha256": "a904738f1649a4916503a19d35772c7ca9c7d08f835f1ba58cfefb38fb64aa0a",
+      "original": "C5/row12_lean_2026-10-06/Row12/AngularContour.lean"
+    },
+    {
+      "path": "Row12/AngularContourFrame.lean",
+      "sha256": "887b54aabf3dbe0c4cba970ff46940b2617d98164dad71c2d20d959d846b75d9",
+      "original": "C5/row12_lean_2026-10-06/Row12/AngularContourFrame.lean"
+    },
+    {
+      "path": "Row12/AngularNormalForm.lean",
+      "sha256": "5251ccfacc06e27844896758c2452221acc563b7a75934e523efe7bc2ef6f3cc",
+      "original": "C5/row12_lean_2026-10-06/Row12/AngularNormalForm.lean"
+    },
+    {
+      "path": "Row12/AngularSourceCertificate.lean",
+      "sha256": "4377b72dc48b976488971c1dd4a9f2f50c18a0fc4d06249ad5f9152023504ee5",
+      "original": "C5/row12_lean_2026-10-06/Row12/AngularSourceCertificate.lean"
+    },
+    {
+      "path": "Row12/AngularSourceIntegral.lean",
+      "sha256": "942ea1b8a57c93a04f1681f6735f31ca1279122f846a1aa8a41da0a613768bd8",
+      "original": "C5/row12_lean_2026-10-06/Row12/AngularSourceIntegral.lean"
+    },
+    {
+      "path": "Row12/BetaBalancedDerivative.lean",
+      "sha256": "652760a1aaf4ff593869b2b01df71c319ccce8d7e570d4143002ce3953127668",
+      "original": "C5/row12_lean_2026-10-06/Row12/BetaBalancedDerivative.lean"
+    },
+    {
+      "path": "Row12/BetaBalancedGeometry.lean",
+      "sha256": "6cb8b9b094f5cdc4c08c4a76b3e137a7e411c07c7f654cb12011febdc86d5477",
+      "original": "C5/row12_lean_2026-10-06/Row12/BetaBalancedGeometry.lean"
+    },
+    {
+      "path": "Row12/BetaContourAnalytic.lean",
+      "sha256": "6ec2baf902b513f711554765e24ed1fa9d13770b5024700941827dafcae73633",
+      "original": "C5/row12_lean_2026-10-06/Row12/BetaContourAnalytic.lean"
+    },
+    {
+      "path": "Row12/BetaContourDerivative.lean",
+      "sha256": "d8bf606f50d46c0fa36ad1e2b79f0dd899fba374c6a28fa4330c67acf29d6314",
+      "original": "C5/row12_lean_2026-10-06/Row12/BetaContourDerivative.lean"
+    },
+    {
+      "path": "Row12/BetaFrame.lean",
+      "sha256": "566d8d91fdc90d9e07df5cf64b3f681d67c10e00fbe9d32e8cf789f0ce446b63",
+      "original": "C5/row12_lean_2026-10-06/Row12/BetaFrame.lean"
+    },
+    {
+      "path": "Row12/BetaJointAnalytic.lean",
+      "sha256": "e7405a2daa8ddc91a6d79758ee37d325fad3f47ba81f752d958ca6cde644d06f",
+      "original": "C5/row12_lean_2026-10-06/Row12/BetaJointAnalytic.lean"
+    },
+    {
+      "path": "Row12/BetaLowerEndpoint.lean",
+      "sha256": "eb79b2c0aa5c7a6d0e4b7baa2f0d29a479a91803f5f4bae636383ce3c1f14b8d",
+      "original": "C5/row12_lean_2026-10-06/Row12/BetaLowerEndpoint.lean"
+    },
+    {
+      "path": "Row12/BetaLowerGeometry.lean",
+      "sha256": "161bff39a1f24abb4e086c932290b32e878f9a06721db85ede323c9ce8a99319",
+      "original": "C5/row12_lean_2026-10-06/Row12/BetaLowerGeometry.lean"
+    },
+    {
+      "path": "Row12/BetaMoments.lean",
+      "sha256": "5c408c48e545ea17cb39788190328d581bf2b67dbc432bf5b81ccd323febf733",
+      "original": "C5/row12_lean_2026-10-06/Row12/BetaMoments.lean"
+    },
+    {
+      "path": "Row12/BetaPoleResidue.lean",
+      "sha256": "4ffb473073a772079a542a33e73a368e4d1161316a34654cc3e81208d6a7c691",
+      "original": "C5/row12_lean_2026-10-06/Row12/BetaPoleResidue.lean"
+    },
+    {
+      "path": "Row12/BetaPoles.lean",
+      "sha256": "cd9869fd26207fab48326f89d47810dda3e982b1b6017662b11dddee9d0c1091",
+      "original": "C5/row12_lean_2026-10-06/Row12/BetaPoles.lean"
+    },
+    {
+      "path": "Row12/BetaSourceComparison.lean",
+      "sha256": "a3e3e7b7f2ca0a7d50a3d312dfe2e0e63e8d7afd7bdf39b4c6165d54ec8b93b7",
+      "original": "C5/row12_lean_2026-10-06/Row12/BetaSourceComparison.lean"
+    },
+    {
+      "path": "Row12/CircleParametric.lean",
+      "sha256": "cfb25b5bc087ebb861d72fd49d9a33acbf04d27748797478abeed05a9a70836c",
+      "original": "C5/row12_lean_2026-10-06/Row12/CircleParametric.lean"
+    },
+    {
+      "path": "Row12/Coefficient.lean",
+      "sha256": "80021ae189e62bc13be488ea018161104d6e11b3483fbaad54bda1d9aa0c41c4",
+      "original": "C5/row12_lean_2026-10-06/Row12/Coefficient.lean"
+    },
+    {
+      "path": "Row12/ComplexRealSeries.lean",
+      "sha256": "c285b1329561bbd3017d73fa55d7652b5e23c803c54ae5d9bc51613f7f2fb9e1",
+      "original": "C5/row12_lean_2026-10-06/Row12/ComplexRealSeries.lean"
+    },
+    {
+      "path": "Row12/Convergence.lean",
+      "sha256": "ee4a8dded456a13caa6cbb9abf1d1caaeb31ee45577465c6f9317205132b1225",
+      "original": "C5/row12_lean_2026-10-06/Row12/Convergence.lean"
+    },
+    {
+      "path": "Row12/DualFrame.lean",
+      "sha256": "3a099171362a0d8e6771388339dc0a2815f09c694a089a7566b92a19fdb4ce1c",
+      "original": "C5/row12_lean_2026-10-06/Row12/DualFrame.lean"
+    },
+    {
+      "path": "Row12/EscapeApplication.lean",
+      "sha256": "adfa768bb78c84b8bc8d51a22db228589be599f45ef2f144b45dd48be31b5d01",
+      "original": "C5/row12_lean_2026-10-06/Row12/EscapeApplication.lean"
+    },
+    {
+      "path": "Row12/EscapeNumerator.lean",
+      "sha256": "06ddc1e05f32ed087a3b49892c5d03ddc6a6772cb973240f9fcf680eaf497eb9",
+      "original": "C5/row12_lean_2026-10-06/Row12/EscapeNumerator.lean"
+    },
+    {
+      "path": "Row12/EscapeRemovable.lean",
+      "sha256": "2db81d240988835d8433bf82c9afaffc7368f738f01a24544c0339fa6e8c4833",
+      "original": "C5/row12_lean_2026-10-06/Row12/EscapeRemovable.lean"
+    },
+    {
+      "path": "Row12/FixedInnerEndpoint.lean",
+      "sha256": "1463029d1973d4b45898ba723af9bbdf6c8974daa3735ba4449c9f1a6a0f0a34",
+      "original": "C5/row12_lean_2026-10-06/Row12/FixedInnerEndpoint.lean"
+    },
+    {
+      "path": "Row12/GaussEulerIntegral.lean",
+      "sha256": "5a5c10f2cd6bd6156ff0210d7e1304fad9d183b13bba091b801b58ec5c95abfa",
+      "original": "C5/row12_lean_2026-10-06/Row12/GaussEulerIntegral.lean"
+    },
+    {
+      "path": "Row12/GaussQuadratic.lean",
+      "sha256": "7d3d3a29571ed6e6b43365496e82e6fdf7a7437ebf5762f5c1d40aa3c8ec77f1",
+      "original": "C5/row12_lean_2026-10-06/Row12/GaussQuadratic.lean"
+    },
+    {
+      "path": "Row12/GaussSeries.lean",
+      "sha256": "dd813c096d0c7edf48d26929d75e1f6f9417ab04a4618da7041fa2b954edd254",
+      "original": "C5/row12_lean_2026-10-06/Row12/GaussSeries.lean"
+    },
+    {
+      "path": "Row12/Hadamard.lean",
+      "sha256": "e32187dc029c9fbeaadafe921717552f65105d7425727fad1a3dbf2065f22562",
+      "original": "C5/row12_lean_2026-10-06/Row12/Hadamard.lean"
+    },
+    {
+      "path": "Row12/HadamardComplex.lean",
+      "sha256": "4224f6963b9fc93b7e0625df3be8cd971d4ce80bd4493c2c3ae491f6b985f733",
+      "original": "C5/row12_lean_2026-10-06/Row12/HadamardComplex.lean"
+    },
+    {
+      "path": "Row12/HalfGaussSeries.lean",
+      "sha256": "0c4be11d3cfb7bf4324c1de2e97ec52d0574f811cf366ed2c565f03b0b04b433",
+      "original": "C5/row12_lean_2026-10-06/Row12/HalfGaussSeries.lean"
+    },
+    {
+      "path": "Row12/Integral.lean",
+      "sha256": "950b17188bb2de0aeb5cd54c1c7ae5bc67de0f1655ab6b6899632ab6bfeedd5c",
+      "original": "C5/row12_lean_2026-10-06/Row12/Integral.lean"
+    },
+    {
+      "path": "Row12/Kernel.lean",
+      "sha256": "fd127eb62886aa2bb010b7466b6f930f72de2ab9205fe3d8ea31e8120016d138",
+      "original": "C5/row12_lean_2026-10-06/Row12/Kernel.lean"
+    },
+    {
+      "path": "Row12/MovingPoleContour.lean",
+      "sha256": "c55fca2a0591f265bd56aeea58f6499b3beb062570dbce4d97d2e2ccb239161d",
+      "original": "C5/row12_lean_2026-10-06/Row12/MovingPoleContour.lean"
+    },
+    {
+      "path": "Row12/NativeSeries.lean",
+      "sha256": "b00eaac763d00fcc9bdf6b422ccbc68f1c3593012e9f4f1823d0d9d7491b24fa",
+      "original": "C5/row12_lean_2026-10-06/Row12/NativeSeries.lean"
+    },
+    {
+      "path": "Row12/Normalization.lean",
+      "sha256": "5d00c330936d707ca9eb7b1e84b94cef20d71a9bf2834c453b7d28f2197640ef",
+      "original": "C5/row12_lean_2026-10-06/Row12/Normalization.lean"
+    },
+    {
+      "path": "Row12/OuterEndpoint.lean",
+      "sha256": "b9e8242fa501c013de40db3cfab23e41f4cc4d17ebbca48354abba5985d9e501",
+      "original": "C5/row12_lean_2026-10-06/Row12/OuterEndpoint.lean"
+    },
+    {
+      "path": "Row12/OuterEndpointApplication.lean",
+      "sha256": "33dd0b45700b5862616f7dd095fa2d04a78da8781a374412df0fdcf1f1def130",
+      "original": "C5/row12_lean_2026-10-06/Row12/OuterEndpointApplication.lean"
+    },
+    {
+      "path": "Row12/OuterPrimitive.lean",
+      "sha256": "673dbb472cb7838ca5a7792e240b31a65304ffb3456871e3376ce668d3fe4300",
+      "original": "C5/row12_lean_2026-10-06/Row12/OuterPrimitive.lean"
+    },
+    {
+      "path": "Row12/Residue.lean",
+      "sha256": "4a755f9148f84f04aabb12673a03e820f9372b45f4c7b5dd0dc49086072c31fc",
+      "original": "C5/row12_lean_2026-10-06/Row12/Residue.lean"
+    },
+    {
+      "path": "Row12/ScalarEvaluation.lean",
+      "sha256": "588c8ca8c54f5a8a8d4200d8f024cd7b84937ba6d4e076814325bd5aa77a729e",
+      "original": "C5/row12_lean_2026-10-06/Row12/ScalarEvaluation.lean"
+    },
+    {
+      "path": "Row12/ScalarFlux.lean",
+      "sha256": "3a653924522111e158c8b71a431f52eaccfa3bb5aa35289c7c6f89c23b4b9fbd",
+      "original": "C5/row12_lean_2026-10-06/Row12/ScalarFlux.lean"
+    },
+    {
+      "path": "Row12/ScalarLoaded.lean",
+      "sha256": "00beab9722b1e1c42d4a5f787e4f94f2eff2567e7f562e4818c6411c9a9c7b25",
+      "original": "C5/row12_lean_2026-10-06/Row12/ScalarLoaded.lean"
+    },
+    {
+      "path": "Row12/ScalarSeriesIntegral.lean",
+      "sha256": "8348ae1007da5fb32263ed0690888617705cfec6d39db0e581b3620398bea1e1",
+      "original": "C5/row12_lean_2026-10-06/Row12/ScalarSeriesIntegral.lean"
+    },
+    {
+      "path": "Row12/SixthSeries.lean",
+      "sha256": "96967c560d915139a84863a28253fd254942dca464e15b4cf6afdee8449e0521",
+      "original": "C5/row12_lean_2026-10-06/Row12/SixthSeries.lean"
+    },
+    {
+      "path": "Row12/SymmetricSquare.lean",
+      "sha256": "94aa8d099f5ea3e44d58f4b7f6d73f6346ef80c2aa7bfdd9ef1e4d745feb40ce",
+      "original": "C5/row12_lean_2026-10-06/Row12/SymmetricSquare.lean"
+    },
+    {
+      "path": "Row12/UniformMoment.lean",
+      "sha256": "846949edf9c17f98d5ff3be6b7ef72b39f4f0c78c9fb5e3d2473f9c29fcefe06",
+      "original": "C5/row12_lean_2026-10-06/Row12/UniformMoment.lean"
+    },
+    {
+      "path": "Row12EulerSupport/DominatedLimit.lean",
+      "sha256": "d7c532865af0c323168839c7e66551635f46aab53b26835a1369124426af354f",
+      "original": "C5/row12_lean_euler_2026-10-06/Row12EulerSupport/DominatedLimit.lean"
+    },
+    {
+      "path": "Row12EulerSupport/Endpoint.lean",
+      "sha256": "2be7707e3a197defcfbebd5dd8c57af548762fbb6d284bae35d030b54f341036",
+      "original": "C5/row12_lean_euler_2026-10-06/Row12EulerSupport/Endpoint.lean"
+    },
+    {
+      "path": "Row12EulerSupport/FunctionBound.lean",
+      "sha256": "0ed2de2751e6855ea9f05f50b88bf401fdb800a4d44b59128ca24ec761b245ec",
+      "original": "C5/row12_lean_euler_2026-10-06/Row12EulerSupport/FunctionBound.lean"
+    },
+    {
+      "path": "Row12EulerSupport/Substitution.lean",
+      "sha256": "e2cf0c40358becfbf0580931e2abc90713eb423cb9a9f939e62189c365b947bf",
+      "original": "C5/row12_lean_euler_2026-10-06/Row12EulerSupport/Substitution.lean"
+    },
+    {
+      "path": "Row12EulerSupport/UpperEndpoint.lean",
+      "sha256": "a5b22c93603d8786b30f557de3ccae39c486d2214b41a403b7403be13f442123",
+      "original": "C5/row12_lean_euler_2026-10-06/Row12EulerSupport/UpperEndpoint.lean"
+    },
+    {
+      "path": "Row12EulerSupport/UpperIntegrability.lean",
+      "sha256": "1b497bf300070eb0701244e99717c9f3dcbe184197e0a006ec1d09b0ed976391",
+      "original": "C5/row12_lean_euler_2026-10-06/Row12EulerSupport/UpperIntegrability.lean"
+    },
+    {
+      "path": "Row12EulerSupport/UpperMatrixBound.lean",
+      "sha256": "cd8de215163e31fd7e91902aca63f9afa525e6bcb86394a609c4553390211bc9",
+      "original": "C5/row12_lean_euler_2026-10-06/Row12EulerSupport/UpperMatrixBound.lean"
+    },
+    {
+      "path": "Row12EulerSupport/UpperNativeBound.lean",
+      "sha256": "a2df8f158a27544b430324e0c68b14dbd31b489886ac466ebab5f905b6bae07b",
+      "original": "C5/row12_lean_euler_2026-10-06/Row12EulerSupport/UpperNativeBound.lean"
+    },
+    {
+      "path": "Row12EulerSupport/UpperPoleBound.lean",
+      "sha256": "58550514d03be8b3010e71d2f4653d287c60448a0fea4976a6a36b42ca15cb0c",
+      "original": "C5/row12_lean_euler_2026-10-06/Row12EulerSupport/UpperPoleBound.lean"
+    },
+    {
+      "path": "Row12EulerSupport/Wronskian.lean",
+      "sha256": "d57cbfad9e33289d686a988929c3ddefcd5526225eb7646942448fe5f30902fb",
+      "original": "C5/row12_lean_euler_2026-10-06/Row12EulerSupport/Wronskian.lean"
+    },
+    {
+      "path": "Row12GaussGauge/Algebra.lean",
+      "sha256": "632d1200f461eb329c35e432cd0f1ae97b993c6b5736ffaa48fa19201724dfbb",
+      "original": "C5/row12_lean_gauge_2026-10-06/Row12GaussGauge/Algebra.lean"
+    },
+    {
+      "path": "Row12GaussGauge/Contact.lean",
+      "sha256": "1d2dfa484a79d0acef9fd8e9ba1bac9d3ca71ab432a3814eb80d097eb1c81a0e",
+      "original": "C5/row12_lean_gauge_2026-10-06/Row12GaussGauge/Contact.lean"
+    },
+    {
+      "path": "Row12GaussGauge/Factor.lean",
+      "sha256": "a8e805c086d20bc9f5616028c692c519e12cfc31b0aeb17acb533d60b8aa0195",
+      "original": "C5/row12_lean_gauge_2026-10-06/Row12GaussGauge/Factor.lean"
+    },
+    {
+      "path": "Row12GaussGauge/GaugeODE.lean",
+      "sha256": "bcfe84649f561fd382bb8c965a91b2a860ed6af640d8a1f7a35b93d2e7c6dc40",
+      "original": "C5/row12_lean_gauge_2026-10-06/Row12GaussGauge/GaugeODE.lean"
+    },
+    {
+      "path": "Row12GaussGauge/HBridge.lean",
+      "sha256": "89823af21cecccfefab81c9d602d8e9cd91497169708388273757782e4d1b09b",
+      "original": "C5/row12_lean_gauge_2026-10-06/Row12GaussGauge/HBridge.lean"
+    },
+    {
+      "path": "Row12GaussGauge/Pullback.lean",
+      "sha256": "83440cbd3d3edf9ad58c97ed5778637ccd81ac5e3b79d190bd0f42c42e38b84e",
+      "original": "C5/row12_lean_gauge_2026-10-06/Row12GaussGauge/Pullback.lean"
+    },
+    {
+      "path": "Row12GaussGauge/Transformation.lean",
+      "sha256": "ce3aacbf435ed79b3f2071ca0342262efc8c75d0c4b3148496952c8fe16b3794",
+      "original": "C5/row12_lean_gauge_2026-10-06/Row12GaussGauge/Transformation.lean"
+    }
+  ],
+  "direct_mathlib_imports": [
+    "Mathlib.Algebra.BigOperators.Intervals",
+    "Mathlib.Analysis.Analytic.Binomial",
+    "Mathlib.Analysis.Analytic.ChangeOrigin",
+    "Mathlib.Analysis.Analytic.Order",
+    "Mathlib.Analysis.Analytic.Uniqueness",
+    "Mathlib.Analysis.Calculus.Deriv.Add",
+    "Mathlib.Analysis.Calculus.Deriv.Inv",
+    "Mathlib.Analysis.Calculus.Deriv.Mul",
+    "Mathlib.Analysis.Calculus.Deriv.Polynomial",
+    "Mathlib.Analysis.Calculus.Deriv.Pow",
+    "Mathlib.Analysis.Calculus.Deriv.Prod",
+    "Mathlib.Analysis.Calculus.FDeriv.Analytic",
+    "Mathlib.Analysis.Calculus.MeanValue",
+    "Mathlib.Analysis.Calculus.ParametricIntegral",
+    "Mathlib.Analysis.Calculus.SmoothSeries",
+    "Mathlib.Analysis.Complex.CauchyIntegral",
+    "Mathlib.Analysis.Complex.RealDeriv",
+    "Mathlib.Analysis.Complex.RemovableSingularity",
+    "Mathlib.Analysis.Normed.Group.Bounded",
+    "Mathlib.Analysis.Normed.Module.Connected",
+    "Mathlib.Analysis.Normed.Ring.InfiniteSum",
+    "Mathlib.Analysis.SpecialFunctions.Complex.Analytic",
+    "Mathlib.Analysis.SpecialFunctions.Gamma.Beta",
+    "Mathlib.Analysis.SpecialFunctions.Integrals.Basic",
+    "Mathlib.Analysis.SpecialFunctions.Log.Deriv",
+    "Mathlib.Analysis.SpecialFunctions.OrdinaryHypergeometric",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Continuity",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+    "Mathlib.Analysis.SpecialFunctions.Sqrt",
+    "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+    "Mathlib.Analysis.SpecificLimits.Normed",
+    "Mathlib.Data.Nat.Choose.Cast",
+    "Mathlib.LinearAlgebra.Matrix.Notation",
+    "Mathlib.MeasureTheory.Integral.CircleIntegral",
+    "Mathlib.MeasureTheory.Integral.DominatedConvergence",
+    "Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus",
+    "Mathlib.MeasureTheory.Integral.IntervalIntegral.IntegrationByParts",
+    "Mathlib.RingTheory.Polynomial.Pochhammer",
+    "Mathlib.RingTheory.PowerSeries.Derivative",
+    "Mathlib.Tactic",
+    "Mathlib.Tactic.FinCases",
+    "Mathlib.Tactic.Linarith",
+    "Mathlib.Tactic.NormNum",
+    "Mathlib.Tactic.Ring",
+    "Mathlib.Topology.Order.Compact",
+    "Mathlib.Topology.UniformSpace.HeineCantor"
+  ]
+}

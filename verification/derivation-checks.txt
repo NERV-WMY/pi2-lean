@@ -1,0 +1,11 @@
+CERTIFICATE_TRANSCRIPTION_CHECK.py
+==================================
+All nine source entries pass exact zero-remainder f^2 division.
+Source transcribed from the complete beta formulas.
+Angular source identity established with its rational primitive.
+All finite printed identities hold over the rational function fields.
+Elapsed seconds: 62.071
+
+DOCUMENT_SMALL_CHECKS.py
+========================
+All small manuscript identities and endpoint cancellations hold exactly.

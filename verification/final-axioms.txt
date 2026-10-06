@@ -1,0 +1,12 @@
+Row12.row12_hasSum :
+  HasSum (fun n => ↑(6 * n).factorial / ↑n.factorial ^ 6 * (532 * ↑n ^ 2 + 126 * ↑n + 9) / 10 ^ (6 * n))
+    (375 / (4 * Real.pi ^ 2))
+Row12.row12_summable :
+  Summable fun n => ↑(6 * n).factorial / ↑n.factorial ^ 6 * (532 * ↑n ^ 2 + 126 * ↑n + 9) / 10 ^ (6 * n)
+Row12.row12_tsum :
+  ∑' (n : ℕ), ↑(6 * n).factorial / ↑n.factorial ^ 6 * (532 * ↑n ^ 2 + 126 * ↑n + 9) / 10 ^ (6 * n) =
+    375 / (4 * Real.pi ^ 2)
+'Row12.row12_hasSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Row12.row12_summable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Row12.row12_tsum' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS: 69 source hashes, pinned Git dependencies, no proof placeholders, and standard axioms only.
