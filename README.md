@@ -21,10 +21,7 @@ lake build Row12
 python3 scripts/verify.py
 ```
 
-The first build retrieves pinned dependencies and may take substantial time.
-The pins are Lean **4.33.1** and Mathlib
-**db584cd6d46c92f209a44c0f1c829460d327499d**. This repository contains every
-Row12 source dependency, including Euler and signed Gauss support.
+Requires Lean **4.33.1**. Dependencies are pinned in the project files.
 
 ## Proof
 
