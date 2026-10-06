@@ -40,17 +40,7 @@ This repository formalizes the displayed scalar identity.
 
 ## Verification and credit
 
-Build and axiom checks are recorded in [verification/STATUS.md](verification/STATUS.md).
-The assembled package passed its local release build. Hosted CI will repeat
-the build and verification script after publication.
-The original connected proof received a mathematical review with no substantive
-defect found. Human mathematical acceptance remains pending in the project records.
-Evidence labels: **[ARG]** for the derivation and **[ONE]** for recorded executions.
-The user-requested [derivation recheck](verification/DERIVATION_RECHECK.md)
-also found no substantive defect and reran both manuscript certificate checks.
-
-The research and formalization were developed with OpenAI Codex assistance.
-Lean and Mathlib are credited as dependencies. Original source hashes and
-project paths are retained in [source-hashes.json](verification/source-hashes.json).
+Local build and axiom checks passed ([record](verification/STATUS.md)).
+Developed with OpenAI Codex assistance, using Lean and Mathlib.
 
 License: [Apache-2.0](LICENSE).
